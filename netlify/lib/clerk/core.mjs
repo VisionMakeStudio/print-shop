@@ -1,4 +1,4 @@
-export const CLERK_POLICY_VERSION='clerk-1.1';
+export const CLERK_POLICY_VERSION='clerk-1.2';
 
 export const PRODUCT_TYPES=[
   {key:'tee',label:'T-shirt',price:2799,blueprint:[/garment-dyed t-shirt/i,/unisex.*t-shirt/i,/t-shirt/i],exclude:/youth|kids|infant|toddler|dress|v-neck|long sleeve/i,sizes:['S','M','L','XL','2XL','3XL'],colors:['White','Black','Navy','Dark Heather','Sand','Natural']},
@@ -40,6 +40,15 @@ function variantWords(variant,map){
 }
 function wanted(words,wantedValues){return wantedValues.some(value=>words.some(word=>String(word).toLowerCase()===value.toLowerCase()));}
 
+function placeholderRecord(value){
+  if(typeof value==='string'){const position=plain(value,40);return position?{position}:null;}
+  const position=plain(value?.position,40);if(!position)return null;
+  const decorationMethod=plain(value?.decoration_method||value?.decorationMethod,60);
+  return {position,...(decorationMethod?{decorationMethod}:{})};
+}
+
+function variantPlaceholders(variant){return (variant?.placeholders||[]).map(placeholderRecord).filter(Boolean);}
+
 export function summarizeProvider({type,blueprint,provider,catalog}){
   const map=optionMap(catalog),available=listFrom(catalog,'data','variants').filter(v=>v.is_available!==false),selected=[];
   for(const variant of available){
@@ -48,7 +57,7 @@ export function summarizeProvider({type,blueprint,provider,catalog}){
   }
   const fallback=selected.length?selected:available.slice(0,type.key==='mug'?2:18).map(v=>({...v,optionTitles:variantWords(v,map)}));
   const variants=fallback.slice(0,type.key==='mug'?2:30),costs=variants.map(v=>money(v.cost)).filter(Boolean);
-  return {key:type.key,label:type.label,blueprintId:Number(blueprint.id),blueprintTitle:plain(blueprint.title),brand:plain(blueprint.brand),model:plain(blueprint.model),image:(blueprint.images||[])[0]||'',providerId:Number(provider.id),providerTitle:plain(provider.title),variantCount:variants.length,minCost:costs.length?Math.min(...costs):0,maxCost:costs.length?Math.max(...costs):0,variants:variants.map(v=>({id:Number(v.id),title:plain(v.title),cost:money(v.cost),placeholders:(v.placeholders||[]).map(p=>plain(p.position,40)).filter(Boolean)}))};
+  return {key:type.key,label:type.label,blueprintId:Number(blueprint.id),blueprintTitle:plain(blueprint.title),brand:plain(blueprint.brand),model:plain(blueprint.model),image:(blueprint.images||[])[0]||'',providerId:Number(provider.id),providerTitle:plain(provider.title),variantCount:variants.length,minCost:costs.length?Math.min(...costs):0,maxCost:costs.length?Math.max(...costs):0,variants:variants.map(v=>({id:Number(v.id),title:plain(v.title),cost:money(v.cost),placeholders:variantPlaceholders(v)}))};
 }
 
 export function chooseProvider(options){return (options||[]).filter(x=>x.variantCount).sort((a,b)=>b.variantCount-a.variantCount||a.maxCost-b.maxCost||a.providerTitle.localeCompare(b.providerTitle))[0]||null;}
@@ -68,10 +77,25 @@ export function productCopy(draft,type){
   return {title,description};
 }
 
+export function hydrateProduct(product,catalog){
+  const current=listFrom(catalog,'data','variants').filter(variant=>variant?.is_available!==false),byId=new Map(current.map(variant=>[Number(variant.id),variant]));
+  const variants=(product?.variants||[]).map(saved=>{const live=byId.get(Number(saved.id));if(!live)return null;const livePlaceholders=variantPlaceholders(live);return {...saved,id:Number(live.id),title:plain(live.title||saved.title),cost:money(live.cost||saved.cost),placeholders:livePlaceholders.length?livePlaceholders:variantPlaceholders(saved)};}).filter(Boolean);
+  if(!variants.length)throw new Error(`${plain(product?.label||'Product')} has no available variants at its saved Printify provider. Refresh the live catalog and approve the product choices again.`);
+  const costs=variants.map(variant=>money(variant.cost)).filter(Boolean);
+  return {...product,variants,variantCount:variants.length,minCost:costs.length?Math.min(...costs):money(product?.minCost),maxCost:costs.length?Math.max(...costs):money(product?.maxCost)};
+}
+
+function preferredPlaceholder(variant){
+  const placeholders=variantPlaceholders(variant);
+  return placeholders.find(value=>/^front$/i.test(value.position))||placeholders.find(value=>/front/i.test(value.position))||placeholders[0]||{position:'front'};
+}
+
 export function productPayload({draft,product,imageId}){
-  const copy=productCopy(draft,product.key),ids=product.variants.map(v=>v.id),positions=product.variants.flatMap(v=>v.placeholders||[]).filter(Boolean),position=positions.find(value=>/^front$/i.test(value))||positions.find(value=>/front/i.test(value))||positions[0]||'front';
+  const copy=productCopy(draft,product.key),groups=new Map();
+  for(const variant of product.variants){const placeholder=preferredPlaceholder(variant),key=`${placeholder.position}\u0000${placeholder.decorationMethod||''}`;if(!groups.has(key))groups.set(key,{placeholder,ids:[]});groups.get(key).ids.push(Number(variant.id));}
+  const printAreas=[...groups.values()].map(({placeholder,ids})=>({variant_ids:ids,placeholders:[{position:placeholder.position,...(placeholder.decorationMethod?{decoration_method:placeholder.decorationMethod}:{}),images:[{id:imageId,x:.5,y:.5,scale:.82,angle:0}]}]}));
   // Creating a product does not publish it to Etsy. Printify's separate publish
   // endpoint is intentionally absent. `visible` is response-only and must not
   // be sent in a create request.
-  return {title:copy.title,description:copy.description,blueprint_id:product.blueprintId,print_provider_id:product.providerId,variants:product.variants.map(v=>({id:v.id,price:product.price,is_enabled:true})),print_areas:[{variant_ids:ids,placeholders:[{position,images:[{id:imageId,x:.5,y:.5,scale:.82,angle:0}]}]}]};
+  return {title:copy.title,description:copy.description,blueprint_id:product.blueprintId,print_provider_id:product.providerId,variants:product.variants.map(v=>({id:Number(v.id),price:product.price,is_enabled:true})),print_areas:printAreas};
 }
