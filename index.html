@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B132B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Print Shop">
+<meta name="description" content="VisionMakeStudio Print Shop — a private control-room preview with sample data.">
+<title>VisionMakeStudio · Print Shop</title>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADt0lEQVR4nO3dP2iUdxzH8Z+lINLbCo5SbDsVKxbERYoutYPQRbok0cmhVPBfhS4lBBfBVlQUBydJdBCXQgfTRZEuIlR0rYI4Ogvi1jU5/Dxccs+/u3u9tstzf5Lw5ndffvfc3ZZPPv2qwId89MGfgjioYuUgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEH0cT5EWbl/e+1/Yf77udGPTgErB5E4iMRBJA6iLc4hrZgxxzEF86mVg0gcROIgEgfRrA+kG5pA5yt3SDd024lg5SASB5E4iMTBDA+krY2NS3/eLc1Y/OHH0gUrB5E4iMRBJA6aOYf00Pyx0j8L89+NfuXllb9H/4tWV26VWWLlIBIHkTiIxMEsvalpaMYcmk+HjlLBykEkDiJxEImDZl6yr95P/PfxP2XSfLNv/9qLy7uXyqTZfu6zuu7KykEkDiJxEImDSBxE4iASB5E4iMRB/16yP/vbyU4e94/zV+q6q88v7S1deHnmSTsPZOUgEgeROIjEwSydQ9qV148uVxzd8e2phm7bHCsHkTiIxEEkDiJxEImDSBxE4iASB5Ed0trsGGMfs6s90GpWDiJxEImDSBz0byCt8VxOGmLlIBIHkTiIxEE0czukj++cHv3Kb8tfFUdflsNlqlk5iMRBJA4icTBLA+mGRs5xvD1QNa4OHk78uGrlIBIHkTiIxEEXA+nQh8zX6MbJbj5vqcZxdefeE6X3rBxE4iASB5E46OKbmlozznx64vbq6Fe+Nndo0w/U2oapb2qiDZ5WiMRBJA4icRCJg0gcROIgEgdTfQ7pT1ee9PAF/YFzSJlinlaIxEEkDqZrIF3evVR1+OG6SwvPFhsaVwfrR87qk0YnkZWDSBxE4iASB9M1kPbTYPK3RIdYOYjEQSQOInFQ05ua3lx8VSZcjfuYg15OoN7URBs8rRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkXNIN+/61nsVR39+f2TTr6QvXv19jN/rl1ITKweROIjEQSQOahpIh6aqoQ/GP7jt6eh39eDdntKFGwcm71zOrlg5iMRBJA4icdDMDunqyq21Fw8e/3rTt23NzsrHvbD+T3i362iZYVYOInEQiYNIHETiIBIHkTiIxEEkDpr5Lvvq7cVqv958Xnpg+5dftPNAb/570f9fY4iVg0gcROIgEgetvKmpJzMmdbFyEImDSBxE4qCVHVKmjJWDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQUn+B2kPgjqmGntvAAAAAElFTkSuQmCC">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADt0lEQVR4nO3dP2iUdxzH8Z+lINLbCo5SbDsVKxbERYoutYPQRbok0cmhVPBfhS4lBBfBVlQUBydJdBCXQgfTRZEuIlR0rYI4Ogvi1jU5/Dxccs+/u3u9tstzf5Lw5ndffvfc3ZZPPv2qwId89MGfgjioYuUgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEH0cT5EWbl/e+1/Yf77udGPTgErB5E4iMRBJA6iLc4hrZgxxzEF86mVg0gcROIgEgfRrA+kG5pA5yt3SDd024lg5SASB5E4iMTBDA+krY2NS3/eLc1Y/OHH0gUrB5E4iMRBJA6aOYf00Pyx0j8L89+NfuXllb9H/4tWV26VWWLlIBIHkTiIxMEsvalpaMYcmk+HjlLBykEkDiJxEImDZl6yr95P/PfxP2XSfLNv/9qLy7uXyqTZfu6zuu7KykEkDiJxEImDSBxE4iASB5E4iMRB/16yP/vbyU4e94/zV+q6q88v7S1deHnmSTsPZOUgEgeROIjEwSydQ9qV148uVxzd8e2phm7bHCsHkTiIxEEkDiJxEImDSBxE4iASB5Ed0trsGGMfs6s90GpWDiJxEImDSBz0byCt8VxOGmLlIBIHkTiIxEE0czukj++cHv3Kb8tfFUdflsNlqlk5iMRBJA4icTBLA+mGRs5xvD1QNa4OHk78uGrlIBIHkTiIxEEXA+nQh8zX6MbJbj5vqcZxdefeE6X3rBxE4iASB5E46OKbmlozznx64vbq6Fe+Nndo0w/U2oapb2qiDZ5WiMRBJA4icRCJg0gcROIgEgdTfQ7pT1ee9PAF/YFzSJlinlaIxEEkDqZrIF3evVR1+OG6SwvPFhsaVwfrR87qk0YnkZWDSBxE4iASB9M1kPbTYPK3RIdYOYjEQSQOInFQ05ua3lx8VSZcjfuYg15OoN7URBs8rRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkXNIN+/61nsVR39+f2TTr6QvXv19jN/rl1ITKweROIjEQSQOahpIh6aqoQ/GP7jt6eh39eDdntKFGwcm71zOrlg5iMRBJA4icdDMDunqyq21Fw8e/3rTt23NzsrHvbD+T3i362iZYVYOInEQiYNIHETiIBIHkTiIxEEkDpr5Lvvq7cVqv958Xnpg+5dftPNAb/570f9fY4iVg0gcROIgEgetvKmpJzMmdbFyEImDSBxE4qCVHVKmjJWDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQUn+B2kPgjqmGntvAAAAAElFTkSuQmCC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{--navy:#0B132B;--ink:#070B1C;--panel:#121838;--panel2:#1a2150;--line:#303969;--neon:#a78bfa;--text:#F8FAFC;--muted:#AEB8D6;--orange:#F59E0B;--gold:#FBBF24;--good:#4ade80;--bad:#f87171;color-scheme:dark;font-synthesis:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 65% 0,#171337 0,transparent 55%),var(--ink);color:var(--text);font:15px/1.55 'IBM Plex Sans',system-ui,sans-serif}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:default;opacity:.48}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px}button,input,select{min-height:44px}a{color:#c4b5fd}p{margin:0 0 12px}h1,h2,h3,h4{font-family:Silkscreen,monospace;font-weight:400;line-height:1.35}h1{font-size:clamp(18px,2.6vw,29px);margin:3px 0 0;overflow-wrap:anywhere}h2{font-size:17px;margin:0 0 12px}h3{font-size:14px;margin:20px 0 8px;color:var(--gold)}h4{font-size:16px;margin:4px 0 8px}small,.small{font-size:12px}strong,b{font-weight:600}small{line-height:1.5}svg,canvas{max-width:100%}[hidden]{display:none!important}.wrap{max-width:1376px;margin:auto;padding:20px 20px 45px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px;min-width:0}.brand img{width:48px;height:48px;image-rendering:pixelated;border:1px solid #5a468d;border-radius:9px}.eyebrow{font:12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--muted)}.orange{color:var(--orange)}.muted{color:var(--muted)}.mono{font-family:'IBM Plex Mono',monospace}.top-actions,.flex,.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.chip,.pill{display:inline-block;font:12px/1.5 'IBM Plex Mono',monospace;padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:#0c1033;color:var(--muted)}.chip{color:#fcd68a;border-color:#8d5c22;border-style:dashed}.pill.good{color:#86efac;border-color:#286048}.pill.warn{color:#fde68a;border-color:#715824}.pill.bad{color:#fecaca;border-color:#8f3f4e}.btn{display:inline-flex;justify-content:center;align-items:center;gap:6px;min-height:44px;border:1px solid #514b93;background:#1a2150;color:var(--text);padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;line-height:1.35}.btn:hover:not(:disabled){background:#272b5c;border-color:#a78bfa}.btn.primary{background:var(--orange);color:#0B132B;border-color:#f59e0b}.btn.primary:hover:not(:disabled){background:#fbbf24}.btn.danger{background:#411c30;border-color:#bc5267;color:#fecdd3}.btn.quiet{background:#10162e}.btn[aria-pressed=true]{border-color:#c4b5fd;background:#342556;color:#fff}.back{background:none;border:0;color:#c4b5fd;min-height:44px;padding:0 8px 0 0;font-weight:600}.nav{display:flex;gap:6px;margin:20px 0 14px;flex-wrap:wrap}.nav button{background:transparent;border:1px solid transparent;color:var(--muted);padding:10px 15px;border-radius:8px;font-weight:600;font-size:14px}.nav button[aria-current=page]{color:#fef3c7;border-color:#65503c;background:#2b2333}.nav .count{padding:1px 6px;border-radius:4px;background:#f59e0b24;color:var(--gold);margin-left:5px}.notice{border:1px solid #4d4077;border-left:3px solid var(--neon);border-radius:8px;background:#191734;padding:11px 14px;font-size:13px;margin-bottom:14px}.notice.danger{border-color:#853c50;background:#301728;border-left-color:#f87171}.notice strong{color:#e4d6ff}.notice.danger strong{color:#fecaca}.hud{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:linear-gradient(#1c2257,#131942);border:2px solid #3b3f8f;border-radius:10px;padding:9px 10px;box-shadow:0 0 18px #7c3aed24,inset 0 -3px 0 #0b0f2e;margin-bottom:16px}.res{display:flex;align-items:center;gap:7px;background:#0c1033;border:1px solid #33398a;border-radius:7px;padding:7px 10px;font:12px 'IBM Plex Mono',monospace;min-height:40px}.res b{font:15px Silkscreen,monospace;font-weight:400}.res i{width:10px;height:10px;display:inline-block;border-radius:2px}.res.clock{margin-left:auto;color:var(--muted)}.page-intro{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 15px}.page-intro h2{font-size:23px;margin:3px 0 7px}.page-intro p{margin-bottom:0;max-width:740px;color:var(--muted)}.main{display:grid;grid-template-columns:minmax(0,1fr) 376px;gap:14px;align-items:start}.shop-left{display:flex;flex-direction:column;gap:14px;min-width:0}.stage{position:relative;border:2px solid #51458b;border-radius:11px;overflow:hidden;background:#05071a;box-shadow:0 0 24px #7c3aed40}.map-wrap{position:relative;overflow:hidden;background:#05071a}canvas#map{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges}.robot-targets{position:absolute;inset:0;pointer-events:none;overflow:hidden}.robot-target{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;min-width:44px;min-height:44px;border:0;background:transparent;pointer-events:auto;border-radius:5px;padding:0}.robot-target:hover{box-shadow:inset 0 0 0 1px #fbbf24aa}.robot-target:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;background:#fbbf2418}.stagebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;background:#0c1033;border-top:2px solid #3b3f8f;font:12px/1.5 'IBM Plex Mono',monospace;color:var(--muted)}.stagebar .btn{font:600 13px 'IBM Plex Sans',sans-serif;padding:8px 10px}.caption{padding:12px 14px;background:#11152f;border-top:1px solid var(--line);min-height:72px}.caption strong{color:#e4d6ff}.caption p{font-size:13px;color:var(--muted);margin:3px 0 0}.side,.panel{background:var(--panel);border:1px solid #3b3f8f;border-radius:10px;min-width:0}.side{border-width:2px;box-shadow:0 0 18px #7c3aed26;overflow:hidden}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:2px solid #3b3f8f}.tab{min-height:50px;background:transparent;border:0;color:var(--muted);font:600 13px 'IBM Plex Sans',sans-serif;border-bottom:3px solid transparent;padding:6px 2px}.tab[aria-selected=true]{color:var(--text);border-bottom-color:var(--neon);background:#1a2150}.panebody{padding:13px;overflow:auto;max-height:660px;scrollbar-color:#62508b #10152d}.row{width:100%;display:flex;gap:10px;align-items:center;text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px;color:var(--text);font:inherit;margin:0 0 8px;min-height:65px}.row:hover{border-color:#9c81c9}.row .av{width:40px;height:44px;flex:none;background:#0c1033;display:grid;place-items:center;border-radius:6px;overflow:hidden}.av canvas{width:40px;height:40px;image-rendering:pixelated}.row b{display:block;font-size:14px}.row small{display:block;color:var(--muted)}.row .rowcopy{flex:1;min-width:0}.row .right{margin-left:auto;text-align:right;font:12px/1.4 'IBM Plex Mono',monospace;color:var(--muted);flex:none}.row .right b{font:14px Silkscreen,monospace;color:var(--text)}.row .pill{font-size:12px;padding:2px 5px;max-width:100px;overflow-wrap:anywhere}.xp{height:5px;background:#0c1033;border-radius:3px;margin-top:6px;overflow:hidden;max-width:150px}.xp span{display:block;height:100%;background:linear-gradient(90deg,#a78bfa,#fde68a)}.portrait-head{display:flex;gap:12px;align-items:center;margin:8px 0 16px}.portrait-head canvas{width:60px;height:60px;image-rendering:pixelated;background:#0c1033;border-radius:9px}.detail ul{padding-left:18px;font-size:14px}.detail li{margin:5px 0}.detail p{font-size:14px}.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.kv>div{background:#0c1033;border:1px solid var(--line);border-radius:7px;padding:10px;min-width:0}.kv small{display:block;color:var(--muted)}.kv b{font:15px/1.5 Silkscreen,monospace;font-weight:400;overflow-wrap:anywhere}.panel-head{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 15px;border-bottom:1px solid var(--line);flex-wrap:wrap}.panel-head h2,.panel-head h3{margin:0;font-size:15px}.pad{padding:15px}.panel-head small{color:var(--muted)}.columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.spaced{margin-top:15px}.feed{list-style:none;padding:0;margin:0;max-height:260px;overflow:auto}.feed li{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:11px 15px;border-bottom:1px solid #2c3152;font-size:13px}.feed time{font:12px/1.5 'IBM Plex Mono',monospace;color:var(--muted)}.feed strong{color:var(--gold)}.queue-list{list-style:none;padding:0;margin:0}.queue-list li{display:flex;justify-content:space-between;gap:12px;align-items:start;padding:13px 15px;border-bottom:1px solid #2c3152;font-size:14px}.queue-list small{display:block;color:var(--muted)}.queue-list .pill{max-width:130px}.bars{height:90px;display:flex;align-items:end;gap:7px;margin:15px 0 2px}.bar-col{flex:1;text-align:center;display:flex;flex-direction:column;justify-content:end;height:100%;gap:5px}.bar-col i{display:block;background:linear-gradient(#a78bfa,#6d28d9);min-height:3px;border-radius:3px 3px 0 0}.bar-col small{color:var(--muted);font:12px 'IBM Plex Mono',monospace}.srcbar{height:6px;background:#0c1033;border-radius:4px;overflow:hidden;margin:6px 0 2px}.srcbar span{display:block;height:100%}.timeline{list-style:none;padding:0!important}.timeline li{display:flex;gap:9px;align-items:start}.timeline i{display:block;width:10px;height:10px;background:#39415d;border-radius:50%;margin-top:6px;flex:none}.timeline .done i{background:var(--good)}.playbook-entry{padding:12px 0;border-top:1px solid var(--line)}.playbook-entry p{font-size:13px;margin:4px 0 8px}.playbook-entry small{display:block;color:var(--muted)}.subtle-line{border-top:1px solid var(--line);padding-top:12px}.design-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.design-card{background:#121838;border:1px solid #3e427d;border-radius:11px;overflow:hidden;min-width:0}.card-top{padding:10px 13px;display:flex;gap:8px;justify-content:space-between;align-items:center;font:12px/1.5 'IBM Plex Mono',monospace;background:#0e132d}.shirt-stage{min-height:230px;display:grid;place-items:center;position:relative;background:var(--stage,#171d3b);overflow:hidden}.shirt-wrap{width:215px;height:225px;position:relative;margin:auto}.shirt-outline{width:100%;height:100%;filter:drop-shadow(0 7px 0 #0002)}.shirt-print{position:absolute;top:64px;left:58px;right:58px;text-align:center;color:var(--shirt-ink);font-family:Silkscreen,monospace;font-size:15px;line-height:1.1}.ink-text{white-space:pre-line;overflow-wrap:normal}.shirt-print .pixel-art{display:block;width:48px;height:42px;margin:7px auto;image-rendering:pixelated}.shirt-print.arch{transform:rotate(-6deg)}.shirt-print.bold{font-family:'IBM Plex Sans',sans-serif;font-weight:600;font-size:18px}.card-details{padding:15px}.card-details h3{font-family:'IBM Plex Sans',sans-serif;font-size:20px;font-weight:600;line-height:1.25;color:var(--text);margin:0 0 8px}.title-score{display:flex;justify-content:space-between;gap:10px;align-items:start}.score{font:16px Silkscreen,monospace;background:#f59e0b18;color:var(--gold);border:1px solid #715824;border-radius:6px;padding:6px;flex:none}.trend-line{font-size:13px;color:#c4b5fd;margin-bottom:9px}.why{font-size:14px;color:#d2d8e9}.metadata{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;font-size:13px}.metadata dt{font-size:12px;color:var(--muted)}.metadata dd{margin:0}.checks{background:#0c122b;padding:12px;border-radius:7px;font-size:12px}.checks ul{list-style:none;padding:0;margin:6px 0 0}.checks li{margin:4px 0;padding-left:17px;position:relative}.checks li:before{content:'✓';position:absolute;left:0;color:var(--good)}.checks .hold:before{content:'!';color:var(--gold)}.shop-picks{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.shop-picks label{display:flex;align-items:center;gap:7px;min-height:44px;padding:0 10px;border:1px solid var(--line);border-radius:7px;font-size:13px}.shop-picks input{width:18px;height:18px;min-height:18px;accent-color:var(--orange)}.will-post{font-size:13px;background:#1c2243;border-left:2px solid #a78bfa;padding:10px;margin:12px 0}.will-post strong{display:block;color:#e9d5ff}.reason-label{font-size:12px;color:var(--muted);margin:10px 0 5px}.skip-reasons{display:flex;gap:5px;flex-wrap:wrap}.skip-reasons button{font-size:12px;line-height:1.25;min-height:44px;padding:6px 9px;background:#0f1531;color:var(--muted);border:1px solid var(--line);border-radius:6px}.skip-reasons [aria-pressed=true]{background:#342347;color:#fff;border-color:#a78bfa}.card-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:13px}.card-actions .btn{padding:8px 5px;font-size:13px}.card-note{font-size:12px;color:var(--muted);margin:10px 0 0}.trend-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.trend-card{padding:17px}.trend-card h3{font:600 19px 'IBM Plex Sans',sans-serif;color:var(--text);margin:4px 0 9px}.trend-card .why{margin:8px 0 13px}.calendar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:15px}.calendar article{padding:13px;background:#0e1530;border:1px solid var(--line);border-radius:8px}.calendar h3{margin:0 0 7px;color:var(--text)}.calendar time{display:block;color:#e9d5ff;font-size:14px;margin:3px 0}.rule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.rule-card{padding:17px}.rule-card h3{margin:0 0 10px}.rule-card .number{font:20px Silkscreen,monospace;color:#e9d5ff;display:block;margin:8px 0}.rule-card p{color:var(--muted);font-size:14px}.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:15px}.slot{padding:12px;background:#0c122b;border:1px solid var(--line);border-radius:7px;font:13px 'IBM Plex Mono',monospace}.slot strong{display:block;color:#fde68a;margin:7px 0;font-size:15px}.slot small{display:block;color:var(--muted);font-family:'IBM Plex Sans',sans-serif}.email-shell{max-width:920px;margin:0 auto;border:1px solid #44446e;border-radius:11px;overflow:hidden;background:#0f142a}.inboxbar{padding:14px 20px;background:#1a1d3b;border-bottom:1px solid #44446e;font-size:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.email-meta{padding:22px;background:#121832;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.email-meta h2{font:600 24px/1.3 'IBM Plex Sans',sans-serif;margin-bottom:14px}.email-meta p{font-size:13px;margin:5px 0;color:var(--muted)}.email-body{padding:25px}.email-body .mail-title{font:22px Silkscreen,monospace;margin:4px 0 20px;color:#fde68a}.email-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.email-stats>div{padding:14px;background:#181f3e;border:1px solid var(--line);border-radius:7px}.email-stats small{display:block;color:var(--muted)}.email-stats b{font:19px Silkscreen,monospace;color:#fff}.mail-line{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:11px 0;font-size:14px}.learning{padding:14px 0;border-bottom:1px solid var(--line)}.learning p{margin:5px 0 9px;font-size:14px}.learning small{color:var(--muted)}.mail-footer{font-size:12px;color:var(--muted);padding-top:20px}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);max-width:calc(100% - 28px);width:max-content;background:#171a36;border:1px solid #b39de8;border-radius:8px;padding:12px 17px;z-index:20;box-shadow:0 8px 40px #0008;font-size:14px}.footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:22px 2px 0}.empty{padding:22px;color:var(--muted);font-size:14px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}details{border-top:1px solid var(--line);padding-top:10px}summary{min-height:44px;cursor:pointer;display:flex;align-items:center;color:#c4b5fd;font-size:13px}.mini-list{padding-left:19px}.mini-list li{margin-bottom:7px;font-size:14px}.sample-label{font:12px 'IBM Plex Mono',monospace;color:#c4b5fd}.safety-controls{display:flex;gap:8px;flex-wrap:wrap}.danger-text{color:#fda4af}.mini-shirt{width:35px;height:35px;position:relative}.mini-shirt svg{width:35px;height:35px}.motion-note{font-size:12px;color:var(--muted);margin:7px 0 0}
+@media(min-width:1400px){.panebody{max-height:710px}}
+@media(max-width:1050px){.main{grid-template-columns:minmax(0,1fr) 335px}.design-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.slots{grid-template-columns:repeat(3,minmax(0,1fr))}.row{padding:8px}.row .right{max-width:90px}}
+@media(max-width:900px){.main{grid-template-columns:minmax(0,1fr)}.panebody{max-height:540px}.trend-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rule-grid{grid-template-columns:1fr}.res.clock{margin-left:0}.shop-left{gap:12px}.row .right{max-width:none}.side{min-height:200px}}
+@media(max-width:600px){.wrap{padding:15px 12px 32px}.top{gap:12px}.brand{gap:9px}.brand img{width:40px;height:40px}.brand h1{font-size:18px}.brand .eyebrow{font-size:12px;letter-spacing:0}.top-actions{width:100%;justify-content:space-between}.top-actions .btn{padding:8px 10px}.nav{gap:5px;margin-top:15px}.nav button{flex:1 0 28%;padding:8px 6px;font-size:13px;border-color:#252c4d}.nav button:last-child{flex-grow:1}.hud{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:7px}.res{padding:7px;gap:5px;justify-content:space-between}.res.clock{grid-column:1/-1;justify-content:center}.res b{font-size:14px}.res i{width:7px;height:7px}.page-intro h2{font-size:21px}.page-intro p{font-size:14px}.columns,.design-grid,.trend-grid,.calendar{grid-template-columns:1fr}.slots{grid-template-columns:1fr 1fr;padding:12px;gap:8px}.email-body{padding:17px}.email-meta{padding:17px}.email-stats{grid-template-columns:1fr 1fr}.email-stats b{font-size:17px}.mail-line{flex-wrap:wrap}.panebody{max-height:560px;padding:10px}.stagebar{padding:9px;gap:8px}.stagebar>.flex{width:100%}.stagebar .btn{flex:1}.caption{padding:10px 12px}.shirt-stage{min-height:250px}.shirt-wrap{width:230px;height:240px}.shirt-print{top:70px;left:62px;right:62px}.card-details{padding:15px}.notice{padding:10px 12px}.rule-card .number{font-size:20px}.top-actions .chip{font-size:12px}.footer{padding-top:20px}.queue-list li{padding:12px}.calendar{padding:12px}.feed li{grid-template-columns:57px 1fr;gap:8px;padding:10px 12px}.card-actions .btn{font-size:14px}.controls-row .btn{flex:1 1 auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.shirt-outline{filter:none}}
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main-content">Skip to content</a>
+<div class="wrap">
+ <header class="top">
+  <div class="brand"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADt0lEQVR4nO3dP2iUdxzH8Z+lINLbCo5SbDsVKxbERYoutYPQRbok0cmhVPBfhS4lBBfBVlQUBydJdBCXQgfTRZEuIlR0rYI4Ogvi1jU5/Dxccs+/u3u9tstzf5Lw5ndffvfc3ZZPPv2qwId89MGfgjioYuUgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEH0cT5EWbl/e+1/Yf77udGPTgErB5E4iMRBJA6iLc4hrZgxxzEF86mVg0gcROIgEgfRrA+kG5pA5yt3SDd024lg5SASB5E4iMTBDA+krY2NS3/eLc1Y/OHH0gUrB5E4iMRBJA6aOYf00Pyx0j8L89+NfuXllb9H/4tWV26VWWLlIBIHkTiIxMEsvalpaMYcmk+HjlLBykEkDiJxEImDZl6yr95P/PfxP2XSfLNv/9qLy7uXyqTZfu6zuu7KykEkDiJxEImDSBxE4iASB5E4iMRB/16yP/vbyU4e94/zV+q6q88v7S1deHnmSTsPZOUgEgeROIjEwSydQ9qV148uVxzd8e2phm7bHCsHkTiIxEEkDiJxEImDSBxE4iASB5Ed0trsGGMfs6s90GpWDiJxEImDSBz0byCt8VxOGmLlIBIHkTiIxEE0czukj++cHv3Kb8tfFUdflsNlqlk5iMRBJA4icTBLA+mGRs5xvD1QNa4OHk78uGrlIBIHkTiIxEEXA+nQh8zX6MbJbj5vqcZxdefeE6X3rBxE4iASB5E46OKbmlozznx64vbq6Fe+Nndo0w/U2oapb2qiDZ5WiMRBJA4icRCJg0gcROIgEgdTfQ7pT1ee9PAF/YFzSJlinlaIxEEkDqZrIF3evVR1+OG6SwvPFhsaVwfrR87qk0YnkZWDSBxE4iASB9M1kPbTYPK3RIdYOYjEQSQOInFQ05ua3lx8VSZcjfuYg15OoN7URBs8rRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkXNIN+/61nsVR39+f2TTr6QvXv19jN/rl1ITKweROIjEQSQOahpIh6aqoQ/GP7jt6eh39eDdntKFGwcm71zOrlg5iMRBJA4icdDMDunqyq21Fw8e/3rTt23NzsrHvbD+T3i362iZYVYOInEQiYNIHETiIBIHkTiIxEEkDpr5Lvvq7cVqv958Xnpg+5dftPNAb/570f9fY4iVg0gcROIgEgetvKmpJzMmdbFyEImDSBxE4qCVHVKmjJWDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQUn+B2kPgjqmGntvAAAAAElFTkSuQmCC" width="48" height="48" alt="Pixel robot holding a shirt"><div><div class="eyebrow">VisionMakeStudio · your control room</div><h1>THE <span class="orange">PRINT SHOP</span></h1></div></div>
+  <div class="top-actions"><span class="chip">PHASE 1 · SAMPLE DATA</span><button class="btn danger" id="safety-button" type="button">Pause all posting</button></div>
+ </header>
+ <nav class="nav" aria-label="Dashboard pages">
+  <button data-page="shop" aria-current="page">Control room</button><button data-page="approvals">Approvals <span class="count" id="nav-count">10</span></button><button data-page="trends">Trends</button><button data-page="posting">Posting</button><button data-page="report">Monday report</button>
+ </nav>
+ <div id="safety-notice" hidden></div>
+ <div class="notice"><strong>Preview only.</strong> All figures, trend evidence, checks, orders and emails are sample data. No accounts are connected. Your demo decisions save only in this browser.</div>
+ <main id="main-content">
+  <section id="page-shop" aria-label="Control room">
+   <div class="hud" id="hud" aria-label="Sample shop scoreboard"></div>
+   <div class="main">
+    <div class="shop-left">
+     <section class="stage" aria-label="Pixel-art print shop">
+      <div class="map-wrap"><canvas id="map" width="480" height="300" role="img" aria-label="Top-down pixel shop: Trend Lab, Design Studio, Inspection, Listing Office, Marketing Hall, Coach’s Office, Print Floor, Mail Room, Cash Office and Loading Dock. Select a robot with the overlaid buttons or Crew panel."></canvas><div class="robot-targets" id="robot-targets" aria-label="Select a robot on the map"></div></div>
+      <div class="stagebar"><span id="following">Watching the whole shop</span><div class="flex"><button class="btn" id="btnAll">Whole shop</button><button class="btn" id="btnFollow">Follow events</button><button class="btn" id="btnPause" aria-pressed="false">Pause motion</button></div></div>
+      <div class="caption" role="status" aria-live="polite"><strong id="event-title">Your crew is ready.</strong><p id="event-caption">Play a sample story to see the workflow. Approval always waits for your tap.</p></div>
+     </section>
+     <section class="panel"><div class="panel-head"><h2>Sample <span class="orange">story</span></h2><small>Recorded sample events · no real posts</small></div><div class="pad"><div class="flex controls-row"><button class="btn primary" id="btnNext">Play next event</button><button class="btn" id="btnStory" aria-pressed="false">Play sample story</button><button class="btn quiet" id="btnReset">Reset preview</button></div><p class="motion-note" id="motion-note"></p><p class="motion-note" id="story-progress"></p></div></section>
+    </div>
+    <aside class="side" aria-label="Shop details"><div class="tabs" role="tablist" aria-label="Shop panel"><button class="tab" id="tab-crew" role="tab" data-tab="crew" aria-selected="true" aria-controls="pane">Crew</button><button class="tab" id="tab-traffic" role="tab" data-tab="traffic" aria-selected="false" aria-controls="pane" tabindex="-1">Traffic</button><button class="tab" id="tab-orders" role="tab" data-tab="orders" aria-selected="false" aria-controls="pane" tabindex="-1">Orders</button><button class="tab" id="tab-live" role="tab" data-tab="live" aria-selected="false" aria-controls="pane" tabindex="-1">Live shirts</button></div><div class="panebody" id="pane" role="tabpanel" aria-labelledby="tab-crew" tabindex="0"></div></aside>
+   </div>
+   <div class="columns spaced"><section class="panel"><div class="panel-head"><h2>Play-by-<span class="orange">play</span></h2><small>Sample event log</small></div><ul class="feed" id="feed" aria-label="Sample event feed" aria-live="polite" aria-relevant="additions"></ul></section><section class="panel"><div class="panel-head"><h2>Posting <span class="orange">queue</span></h2><button class="btn quiet" data-page="posting">View all</button></div><ol class="queue-list" id="home-queue"></ol></section></div>
+  </section>
+  <section id="page-approvals" aria-label="Design approvals" hidden></section>
+  <section id="page-trends" aria-label="Trend board and seasonal calendar" hidden></section>
+  <section id="page-posting" aria-label="Posting rules and queue" hidden></section>
+  <section id="page-report" aria-label="Monday report email preview" hidden></section>
+ </main>
+ <footer class="footer"><span>VisionMakeStudio · Phase 1 preview · browser-local sample decisions</span><span>Postie drafts · Buzz recommends · TikTok videos: owner / approved partner</span></footer>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+<noscript><p class="notice">Enable JavaScript to open the interactive sample dashboard.</p></noscript>
+<script>
+'use strict';
+(()=>{
+/* PHASE 1 / DATA CONTRACT
+   This file is intentionally self-contained. MODE is fixed to sample; no account,
+   provider, email or publishing request is made. localStorage contains sample
+   decisions only. It is NOT authentication, a production database or an API key store.
+
+   Later, Functions v2 supply these exact GET response shapes:
+   /api/stats -> {profit,orders,live,visits,toApprove,postingPaused,
+     robots:[{id,level,xp,status}]}
+   /api/events?since=<ISO> -> [{id,at,robot,type,text,data}]
+   /api/orders -> [{id,shirt,color,size,price,fees,printShip,profit,estimate,
+     status,source,shipTo,timeline:[{step,at}],tracking}]
+   /api/listings -> [{id,title,platforms,postedAt,views,favorites,sales,trend,tags,pins,videos}]
+   /api/traffic -> {week:[seven numbers],sources:[{name,visits,clicks,orders,topShirt}]}
+   null means Unavailable, never zero. Additional mockup/visits/playbook fields
+   below are additive view data; visits is required for order conversion.
+   There is ONE events array and ONE stats snapshot. Events drive animation, while
+   fetched stats replace (never increment) the metric snapshot. Reconnects overlap
+   the last timestamp and deduplicate immutable IDs, including equal timestamps.
+   The future adapter polls all five endpoints every 60 seconds. Its function
+   below is deliberately never called in sample mode. Browser replay cannot post.
+*/
+const MODE='sample', STORAGE_KEY='visionmake-print-shop-phase-one-v1';
+const SAMPLE_NOW=new Date('2026-10-14T18:20:00Z'), SHOP_OPEN='2026-10-12', WEEK='2026-10-12';
+const $=id=>document.getElementById(id);
+const clone=x=>JSON.parse(JSON.stringify(x));
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>n===null||n===undefined?'Unavailable':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
+const number=n=>n===null||n===undefined?'Unavailable':Number(n).toLocaleString('en-US');
+const percent=(orders,visits)=>orders===null||!visits?'Unavailable':(orders/visits*100).toFixed(1)+'%';
+const dateLabel=x=>new Date(x.length===10?x+'T16:00:00Z':x).toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric'});
+const timeLabel=x=>new Date(x).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
+const fullSlot=x=>new Date(x).toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'short',month:'short',day:'numeric'})+' · '+timeLabel(x)+' ET';
+const dayKey=x=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(x));
+const addDays=(d,n)=>new Date(Date.parse(d+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);
+const hash=s=>Array.from(s).reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);
+function easternISO(day,hour,minute){
+  // Resolve the actual Eastern offset on that date, including DST transitions.
+  const guess=new Date(day+'T'+String(hour).padStart(2,'0')+':'+String(minute).padStart(2,'0')+':00Z');
+  const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',timeZoneName:'shortOffset'}).formatToParts(guess);
+  const offset=Number((parts.find(p=>p.type==='timeZoneName').value.match(/GMT([+-]\d+)/)||[])[1]||0);
+  return new Date(+guess-offset*3600000).toISOString();
+}
+const CREW=[
+ {id:'radar',name:'Radar',job:'Trend Scout',c:'#87c9df',hat:'#1e3a8a',room:'trend',hx:40,hy:62,
+  what:'Searches Pinterest Trends, Google Trends and Etsy every Monday for ideas that are rising right now, plus holidays coming up in 6–8 weeks. It scores each idea and writes a short "why it\'s trending" note.',
+  when:'Mondays at 8 AM, plus a quick check mid-week.',needs:'Nothing. It just hands its picks to Pixel.',
+  rules:['Every trend has a source and date','Blocks brands, celebrities, teams, lyrics, characters','Plans seasonal ideas 6–8 weeks early'],recent:['Found "Slow winter mornings" · score 91','Added Thanksgiving to the calendar (design by Oct 1)']},
+ {id:'pixel',name:'Pixel',job:'Designer',c:'#e9a2c1',hat:'#9d174d',room:'design',hx:165,hy:58,
+  what:'Turns Radar\'s top trends into about 10 original shirt designs a week, saved as print-ready files sized for Printify.',
+  when:'Monday after Radar finishes.',needs:'Your approve/skip taps teach it your taste.',
+  rules:['Original art only, never copied','Print stays inside the chest area','Learns from your skip reasons'],recent:['Made "Slow Mornings Club"','Trying 2-color layouts (playbook v1.4)']},
+ {id:'badge',name:'Badge',job:'Inspector',c:'#f6ca71',hat:'#1e40af',room:'inspect',hx:285,hy:58,
+  what:'Checks every design for brand names, banned words and look-alikes, makes sure Etsy\'s AI and Printify disclosures are ready, then sends you the approval email.',
+  when:'Right after Pixel finishes.',needs:'Your Approve or Skip. Nothing posts without you.',
+  rules:['Uncertain trademark results stay held','Never publishes on its own','Changed artwork needs re-approval'],recent:['Checked 10 designs · 0 flagged','Sent the Monday approval email']},
+ {id:'clerk',name:'Clerk',job:'Lister',c:'#aab2f1',hat:'#4c1d95',room:'listing',hx:400,hy:58,
+  what:'Turns approved designs into Printify products and publishes them on Etsy (and TikTok Shop when you turn it on), with photos, title, tags and the required disclosures.',
+  when:'At the next open posting slot (1/day for a new shop, later 2–3/day).',needs:'Nothing after you approve.',
+  rules:['Only approved designs, only shops you turned on','Follows the pacing rules','Stops instantly on a platform warning'],recent:['"Slow Mornings Club" is live on Etsy']},
+ {id:'tagz',name:'Tagz',job:'Tagger',c:'#b9b1e3',hat:'#6d28d9',room:'listing',hx:440,hy:80,
+  what:'Writes the titles and search tags buyers type on Etsy, tests one change at a time, and rewrites listings that get views but no clicks.',
+  when:'When a listing goes live, then weekly tests.',needs:'Nothing.',
+  rules:['Real search words only','One test at a time','Never invents search numbers'],recent:['Testing a clearer title on 1 listing']},
+ {id:'pinny',name:'Pinny',job:'Pinner',c:'#edaba1',hat:'#0f766e',room:'marketing',hx:35,hy:160,
+  what:'Makes 3 different Pinterest pins for each new shirt, spread over 7 days, and re-pins best sellers with fresh pictures every few weeks.',
+  when:'5–10 pins a day, spread out, never overnight.',needs:'Nothing.',
+  rules:['No duplicate pins','Official Pinterest connection only'],recent:['Pin 1 of 3 for "Slow Mornings Club"']},
+ {id:'reel',name:'Reel',job:'Videographer',c:'#7ccac5',hat:'#1f2937',room:'marketing',hx:90,hy:185,
+  what:'Makes a 10–15 second video of each new shirt for TikTok, Instagram Reels and YouTube Shorts.',
+  when:'1 video a day per platform.',needs:'You post the TikTok ones (TikTok rules), unless an approved partner app is set up.',
+  rules:['Owned or licensed music only','Shows the real product'],recent:['Drafted a 12-second video']},
+ {id:'buzz',name:'Buzz',job:'Promoter',c:'#eca384',hat:'#c2410c',room:'marketing',hx:145,hy:160,
+  what:'Suggests sales and coupons before holidays and watches the small Etsy Ads budget you set.',
+  when:'Weekly, and 2–3 weeks before each holiday.',needs:'Your one-tap OK. It only recommends.',
+  rules:['Never changes prices or ads alone','Tracks Offsite Ads fees (12–15%)'],recent:['Suggested a 15% holiday coupon']},
+ {id:'coach',name:'Coach',job:'Trainer',c:'#cbce94',hat:'#365314',room:'coach',hx:225,hy:175,
+  what:'Every Sunday night, reviews how each robot did, updates their playbooks, and runs small tests so the crew gets better every week.',
+  when:'Sundays at 9 PM.',needs:'Your OK only for big changes (prices, ad budget, new platforms).',
+  rules:['Every change has Undo','Learns patterns from other shops, never copies','Low data = "not enough data yet"'],recent:['Pixel → Level 4','Tagz → Level 3']},
+ {id:'hauler',name:'Hauler',job:'Shipper',c:'#a9cf9b',hat:'#ca8a04',room:'print',hx:330,hy:175,
+  what:'Watches every order from Etsy to Printify: printing, packing, shipping and tracking. In the real world Printify prints and ships; Hauler makes sure nothing gets stuck.',
+  when:'Whenever an order comes in.',needs:'Only if a payment fails or an order is delayed (you get an email).',
+  rules:['Never duplicates an order','Escalates delays and failed payments'],recent:['Order #1047 shipped · tracking added']},
+ {id:'postie',name:'Postie',job:'Reply drafter',c:'#9dc8e8',hat:'#1d4ed8',room:'mail',hx:60,hy:275,
+  what:'Drafts friendly replies to customer messages and thank-you notes.',
+  when:'When a message comes in.',needs:'You send the reply (Etsy\'s API can\'t send messages).',
+  rules:['Drafts only','No promotional spam'],recent:['Drafted a sizing answer']},
+ {id:'penny',name:'Penny',job:'Cashier',c:'#f3c16b',hat:'#be123c',room:'cash',hx:230,hy:275,
+  what:'Counts every sale, fee and cost, works out your profit, and emails you each time you make a sale.',
+  when:'Every order, plus the Monday report.',needs:'Nothing.',
+  rules:['Profit is an estimate until costs are confirmed','Missing numbers show Unavailable'],recent:['Order #1047 · est. profit $8.77']}
+];
+
+CREW.forEach((r,i)=>{r.home=r.room;r.x=r.hx;r.y=r.hy;r.path=[];r.dir=1;r.carry=null;r.bubble=null;r.work=0;r.busy=false;r.idleT=2+i*.31;r.lv=[3,4,2,3,3,2,2,1,3,2,1,2][i];r.xp=.25+(i*7%50)/100});
+const BY=Object.fromEntries(CREW.map(r=>[r.id,r]));
+BY.clerk.needs='Your design approval, selected shops, and a release for the current week.';
+BY.tagz.needs='Your approval for proposed changes to public listing content.';
+BY.pinny.needs='Your approval of the pin creative and its destination.';
+BY.clerk.rules.push('Skipping the week holds all pending work');
+BY.pixel.rules.push('No near-duplicate design floods');
+BY.reel.rules.push('Every video creative needs owner approval','TikTok uses owner posting or an approved partner');
+BY.postie.rules.push('No Etsy messaging API; owner sends','Never add buyers to an outside email list');
+BY.penny.rules.push('Include known fees, printing, shipping, advertising and refunds');
+const TRENDS=[
+ {id:'t1',name:'Slow winter mornings',score:91,source:'Pinterest Trends + Google Trends',at:'2026-10-12',season:'Winter / evergreen',launch:'2026-10-15',why:'Cozy morning rituals and small coffee moments are gaining saves in this sample research set.',signal:'Rising saves · sample',palette:'Warm cream + espresso'},
+ {id:'t2',name:'After-dark gardens',score:87,source:'Pinterest Trends',at:'2026-10-12',season:'Autumn / evergreen',launch:'2026-10-16',why:'Moody botanical palettes and nighttime gardening illustrations show up repeatedly in the sample board.',signal:'Visual pattern · sample',palette:'Midnight + lilac'},
+ {id:'t3',name:'Little everyday joys',score:85,source:'Etsy search-term sample',at:'2026-10-12',season:'Evergreen / gifting',launch:'2026-10-15',why:'Small, cheerful messages suit inexpensive personal gifts and everyday self-expression in this sample.',signal:'Search pattern · sample',palette:'Cherry + cream'},
+ {id:'t4',name:'Offline weekends',score:83,source:'Google Trends + public pin patterns',at:'2026-10-13',season:'Fall / outdoors',launch:'2026-10-17',why:'Analog hobbies and time outdoors recur in the example search and pin evidence.',signal:'Cross-source theme · sample',palette:'Forest + butter yellow'},
+ {id:'t5',name:'Cozy holiday hosting',score:89,source:'Seasonal calendar + Etsy search sample',at:'2026-10-12',season:'Christmas / winter',launch:'2026-10-30',why:'A Christmas collection needs an early launch while shoppers are planning gifts and gatherings.',signal:'Seasonal lead time · sample',palette:'Burgundy + soft pink'},
+ {id:'t6',name:'Celestial daydreams',score:78,source:'Pinterest visual-pattern sample',at:'2026-10-13',season:'Evergreen',launch:'2026-10-18',why:'Simple stars, moons and dreamy color pairings recur in this example inspiration set.',signal:'Visual theme · sample',palette:'Blue + gold'}
+];
+const DESIGN_SEED=[
+ {id:'D01',title:'Coffee Takes Its Time',words:'COFFEE\nTAKES\nITS TIME',trend:'t1',score:91,shirt:'#e8d9bd',ink:'#294d45',stage:'#26253b',art:'mug',layout:'stack'},
+ {id:'D02',title:'Night Garden',words:'NIGHT\nGARDEN',trend:'t2',score:87,shirt:'#20233c',ink:'#d8b4fe',stage:'#202945',art:'flower',layout:'arch'},
+ {id:'D03',title:'Tiny Joys Department',words:'TINY JOYS\nDEPARTMENT',trend:'t3',score:86,shirt:'#faf4e7',ink:'#bf3544',stage:'#34263e',art:'cherry',layout:'bold'},
+ {id:'D04',title:'Currently Offline',words:'CURRENTLY\nOFFLINE',trend:'t4',score:83,shirt:'#365545',ink:'#ffe4a3',stage:'#1d2836',art:'mountain',layout:'stack'},
+ {id:'D05',title:'Cozy Hosting Club',words:'COZY\nHOSTING\nCLUB',trend:'t5',score:90,shirt:'#6d263b',ink:'#f9c4d5',stage:'#262240',art:'bow',layout:'arch'},
+ {id:'D06',title:'More Little Moments',words:'MORE LITTLE\nMOMENTS',trend:'t3',score:81,shirt:'#bbd6ea',ink:'#1e3a8a',stage:'#212a3f',art:'sun',layout:'bold'},
+ {id:'D07',title:'Weekend Field Notes',words:'WEEKEND\nFIELD NOTES',trend:'t4',score:84,shirt:'#c8ac81',ink:'#392e31',stage:'#29263e',art:'leaf',layout:'stack'},
+ {id:'D08',title:'Somewhere Under Stars',words:'SOMEWHERE\nUNDER STARS',trend:'t6',score:79,shirt:'#152b50',ink:'#f3ce77',stage:'#24213f',art:'stars',layout:'arch'},
+ {id:'D09',title:'Moonlit Botanicals',words:'MOONLIT\nBOTANICALS',trend:'t2',score:75,shirt:'#34343c',ink:'#c4e7b6',stage:'#252740',art:'flower',layout:'stack',inspectionHold:true},
+ {id:'D10',title:'Just One More Page',words:'JUST ONE\nMORE PAGE',trend:'t1',score:82,shirt:'#d5b6cd',ink:'#49374f',stage:'#28223e',art:'book',layout:'bold'}
+].map(d=>({...d,state:'pending',reason:'',selectedReason:'',shops:{Etsy:true,'TikTok Shop':false}}));
+const LISTING_SEED=[
+ {id:'L8',title:'Slow Mornings Club',platforms:['Etsy'],postedAt:'2026-10-13T18:00:00Z',views:41,visits:35,favorites:5,sales:1,trend:'Slow winter mornings',tags:['cozy shirt','coffee gift','slow mornings'],pins:1,videos:1,designId:'D01',lesson:'Not enough visits to compare styles yet.'},
+ {id:'L7',title:'Garden Daydreams',platforms:['Etsy'],postedAt:'2026-10-12T18:00:00Z',views:188,visits:137,favorites:17,sales:2,trend:'Cottage garden',tags:['garden shirt','plant gift','botanical tee'],pins:3,videos:1,designId:'D02',lesson:'Botanical colors attracted saves; sample volume cannot establish a winner.'},
+ {id:'L6',title:'Little Joys Club',platforms:['Etsy','TikTok Shop'],postedAt:'2026-10-10T18:00:00Z',views:312,visits:240,favorites:28,sales:3,trend:'Small joys',tags:['positive shirt','little joys','cheerful gift'],pins:3,videos:2,designId:'D03',lesson:'The short headline received more saves in this sample. Sales evidence is still limited.'},
+ {id:'L5',title:'Cozy By Nature',platforms:['Etsy'],postedAt:'2026-10-08T18:00:00Z',views:260,visits:null,favorites:22,sales:2,trend:'Cozy season',tags:['cozy shirt','fall gift','forest tee'],pins:3,videos:1,designId:'D04',lesson:'Listing visits are unavailable, so conversion cannot be calculated.'},
+ {id:'L4',title:'Weekend Wandering',platforms:['Etsy'],postedAt:'2026-10-06T18:00:00Z',views:203,visits:164,favorites:11,sales:1,trend:'Road trips',tags:['weekend tee','travel shirt','outdoors gift'],pins:3,videos:1,designId:'D07',lesson:'Wait for more data before changing the thumbnail.'}
+];
+const ORDER_SEED=[
+ {id:'1047',shirt:'Slow Mornings Club',color:'Sand',size:'L',price:24.99,fees:2.57,printShip:13.65,status:'shipped',source:'Pinterest',shipTo:'Austin, TX',designId:'D01',at:'2026-10-14T15:10:00Z'},
+ {id:'1046',shirt:'Garden Daydreams',color:'Sage',size:'M',price:24.99,fees:2.57,printShip:13.65,status:'production',source:'Etsy search',shipTo:'Columbus, OH',designId:'D02',at:'2026-10-13T17:10:00Z'},
+ {id:'1045',shirt:'Little Joys Club',color:'White',size:'XL',price:26.99,fees:2.76,printShip:14.40,status:'delivered',source:'TikTok',shipTo:'Tampa, FL',designId:'D03',at:'2026-10-12T16:10:00Z'},
+ {id:'1044',shirt:'Cozy By Nature',color:'Forest',size:'S',price:24.99,fees:2.57,printShip:13.65,status:'delivered',source:'Etsy search',shipTo:'Denver, CO',designId:'D04',at:'2026-10-12T14:10:00Z'},
+ {id:'1043',shirt:'Weekend Wandering',color:'Black',size:'L',price:24.99,fees:2.57,printShip:13.65,status:'delivered',source:'Instagram',shipTo:'Newark, NJ',designId:'D07',at:'2026-10-12T13:10:00Z'}
+].map(o=>({...o,profit:+(o.price-o.fees-o.printShip).toFixed(2),estimate:true,tracking:o.status==='shipped'||o.status==='delivered'?'SAMPLE-'+o.id:null,timeline:['paid','production','shipped','delivered'].slice(0,['paid','production','shipped','delivered'].indexOf(o.status)+1).map((step,i)=>({step,at:new Date(Date.parse(o.at)+i*3600000).toISOString()}))}));
+const TRAFFIC_SEED={week:[118,142,160,175,190,236,263],sources:[
+ {name:'Etsy search',visits:612,clicks:null,orders:2,topShirt:'Little Joys Club',robot:'tagz',color:'#F59E0B'},
+ {name:'Pinterest',visits:344,clicks:96,orders:1,topShirt:'Slow Mornings Club',robot:'pinny',color:'#ef777f'},
+ {name:'TikTok',visits:158,clicks:null,orders:1,topShirt:'Little Joys Club',robot:'reel',color:'#22d3ee'},
+ {name:'Instagram',visits:92,clicks:21,orders:1,topShirt:'Weekend Wandering',robot:'reel',color:'#e879f9'},
+ {name:'YouTube',visits:10,clicks:null,orders:0,topShirt:null,robot:'reel',color:'#fca5a5'},
+ {name:'Offsite Ads',visits:24,clicks:null,orders:0,topShirt:null,robot:'buzz',color:'#a3e635'},
+ {name:'Direct / other',visits:44,clicks:null,orders:0,topShirt:null,robot:null,color:'#94a3b8'}]};
+const LEARNING={radar:['Keep seasonal deadlines beside every trend.','Sample seasonal brief was reviewed before its launch window.'],pixel:['Test two-ink layouts before adding extra colors.','Owner skip feedback favored simpler compositions in this sample.'],badge:['Hold similar phrases for another inspection.','One sample phrase needs additional clearance evidence.'],clerk:['Recheck approval and weekly release at execution.','A carryover queue must not bypass a skipped week.'],tagz:['Change one title phrase at a time.','Sample click data is incomplete; no winning title is claimed.'],pinny:['Use three genuinely different compositions.','Sample saves alone do not establish purchase intent.'],reel:['Put the shirt in the opening frame.','Watch-time sample is too small to call a winning hook.'],buzz:['Report advertising fees separately.','Attributed revenue alone does not establish profit.'],coach:['Mark low-data tests as inconclusive.','No robot gets promoted solely because a timer ran.'],hauler:['Reconcile imported orders before retrying.','A sample duplicate order notification was ignored.'],postie:['Keep draft messages short and specific.','Owner sends every message inside Etsy.'],penny:['Label unreconciled totals as estimates.','Fees, ads and refunds need reconciliation before final profit.']};
+function seedBooks(){return Object.fromEntries(CREW.map(r=>[r.id,{current:'1.2',history:[{version:'1.0',at:'2026-10-01',summary:'Original playbook',rules:r.rules.slice(),evidence:'Initial operating rules · sample'},{version:'1.1',at:'2026-10-05',summary:'Record the source and date behind each decision.',rules:[...r.rules,'Record the source and date behind each decision.'],evidence:'First sample review · evidence log added'},{version:'1.2',at:'2026-10-11',summary:LEARNING[r.id][0],rules:[...r.rules,'Record the source and date behind each decision.',LEARNING[r.id][0],'Unavailable data stays unavailable.'],evidence:LEARNING[r.id][1]}]}]));}
+const EVENT_SEED=[
+ {id:'boot',type:'system.ready',robot:'coach',at:'2026-10-14T18:20:00Z',text:'Sample shop opened. Ten designs await owner review; no accounts are connected.',data:{}},
+ {id:'sample_01',type:'trend.found',robot:'radar',at:'2026-10-12T12:00:00Z',text:'Found “Slow winter mornings” · sample score 91. Radar hands the trend card to Pixel.',data:{trendId:'t1'}},
+ {id:'sample_02',type:'design.made',robot:'pixel',at:'2026-10-12T12:15:00Z',text:'Finished “Coffee Takes Its Time”. Pixel carries the artwork to Badge.',data:{designId:'D01'}},
+ {id:'sample_03',type:'design.needs_review',robot:'badge',at:'2026-10-12T12:20:00Z',text:'Inspection example complete. Your Approve or Skip tap is required; no timed approval.',data:{designId:'D01'}},
+ {id:'sample_04',type:'tags.updated',robot:'tagz',at:'2026-10-13T17:40:00Z',text:'Historical replay: Tagz hands approved listing tags to Clerk.',data:{listingId:'L8',historical:true}},
+ {id:'sample_05',type:'listing.live',robot:'clerk',at:'2026-10-13T18:00:00Z',text:'Historical replay: an owner-approved shirt was confirmed live on Etsy. No new post is made.',data:{listingId:'L8',historical:true}},
+ {id:'sample_06',type:'pin.posted',robot:'pinny',at:'2026-10-13T19:15:00Z',text:'Historical replay: an approved Pinterest pin was confirmed. The corkboard gets a new pin.',data:{listingId:'L8',historical:true}},
+ {id:'sample_07',type:'video.drafted',robot:'reel',at:'2026-10-14T14:00:00Z',text:'Reel prepared a 12-second sample video draft. TikTok is owner-posted or uses an approved partner.',data:{listingId:'L8',duration:12}},
+ {id:'sample_08',type:'promo.suggested',robot:'buzz',at:'2026-10-14T15:00:00Z',text:'Buzz suggests a seasonal coupon. This is a recommendation; no price, coupon or ad setting changes.',data:{suggestionId:'promo1'}},
+ {id:'sample_09',type:'order.paid',robot:'penny',at:'2026-10-14T18:25:00Z',text:'Sample order #1050 paid · estimated order profit $8.77. Sale email preview prepared.',data:{orderId:'1050',listingId:'L8'}},
+ {id:'sample_10',type:'order.shipped',robot:'hauler',at:'2026-10-14T19:00:00Z',text:'Sample order #1050: production and packing replay, then courier handoff. The van departs.',data:{orderId:'1050'}},
+ {id:'sample_11',type:'reply.drafted',robot:'postie',at:'2026-10-14T19:10:00Z',text:'Postie wrote a delivery thank-you draft. You send it in Etsy; nothing is messaged automatically.',data:{orderId:'1045'}},
+ {id:'sample_12',type:'playbook.updated',robot:'coach',at:'2026-10-19T01:00:00Z',text:'Sunday sample review: Coach visits the crew and records an evidence-based Pixel playbook change.',data:{targetRobot:'pixel',summary:'Keep the two-ink trial; gather more sales before choosing a winner.'}}
+];
+function freshState(){return {version:1,designs:clone(DESIGN_SEED),orders:clone(ORDER_SEED),listings:clone(LISTING_SEED),traffic:clone(TRAFFIC_SEED),queue:[],postedJobs:[],books:seedBooks(),weekly:'held',postingPaused:false,events:clone(EVENT_SEED),processed:['boot'],adSpend:8,refunds:0,suggestion:'pending'};}
+let state;
+try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');state=saved&&saved.version===1&&saved.designs?.length===10&&Array.isArray(saved.events)&&Array.isArray(saved.processed)&&saved.books?.pixel?saved:freshState();}catch{state=freshState();}
+let events=state.events, stats={}, processed=new Set(state.processed);
+state.postedJobs=state.postedJobs||[];
+let storageAvailable=true;
+function save(){state.events=events;state.processed=[...processed];try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch{storageAvailable=false;}}
+function syncStats(){stats={profit:+(state.orders.reduce((sum,o)=>sum+(o.profit??0),0)-state.adSpend-state.refunds).toFixed(2),orders:state.orders.length,live:state.listings.length,visits:state.traffic.week.reduce((a,b)=>a+b,0),toApprove:state.designs.filter(d=>d.state==='pending').length,postingPaused:state.postingPaused,trends:TRENDS.length,designs:10,approved:state.designs.filter(d=>d.state==='approved').length,pins:state.listings.reduce((a,l)=>a+l.pins,0),videos:state.listings.reduce((a,l)=>a+l.videos,0),robots:CREW.map(r=>({id:r.id,level:r.lv,xp:r.xp,status:r.busy?'Working':r.id==='badge'&&state.designs.some(d=>d.state==='pending')?'Needs you':'Ready'}))};}
+async function fetchLiveSnapshot(since){
+  if(MODE==='sample')throw new Error('Live connections are not enabled in Phase 1.');
+  const paths=['/api/stats','/api/events?since='+encodeURIComponent(since),'/api/orders','/api/listings','/api/traffic'];
+  const values=await Promise.all(paths.map(async path=>{const response=await fetch(path,{credentials:'same-origin',cache:'no-store'});if(!response.ok)throw new Error('Live data temporarily unavailable');return response.json();}));
+  return {stats:values[0],events:values[1],orders:values[2],listings:values[3],traffic:values[4]};
+}
+let page='shop',panelTab='crew',panelDetail=null,pacePreview='current',sequenceRunning=false,sequenceTimer=null;
+const S={focus:null,cam:null,overview:false,paused:false,stamp:0,drawer:0,press:false,vanX:380,vanState:'parked'};
+const motionQuery=matchMedia('(prefers-reduced-motion: reduce)');let reduce=motionQuery.matches;
+let epoch=0,animationBusy=false,activeRoom=null,currentEvent=null;
+
+// Canvas art below preserves the supplied 480 x 300 reference map and props.
+const RW=480,RH=300;
+const ROOMS={
+ trend:{x:10,y:10,w:100,h:90,name:'TREND LAB',floor:'#16204a',door:{x:60,y:100},corr:'A'},
+ design:{x:125,y:10,w:110,h:90,name:'DESIGN STUDIO',floor:'#2a1740',door:{x:180,y:100},corr:'A'},
+ inspect:{x:250,y:10,w:100,h:90,name:'INSPECTION',floor:'#2a2414',door:{x:300,y:100},corr:'A'},
+ listing:{x:365,y:10,w:105,h:90,name:'LISTING OFFICE',floor:'#1c1a46',door:{x:417,y:100},corr:'A'},
+ marketing:{x:10,y:130,w:160,h:90,name:'MARKETING HALL',floor:'#301634',door:{x:90,y:130},corr:'A'},
+ coach:{x:185,y:130,w:80,h:90,name:"COACH'S OFFICE",floor:'#1d2a1a',door:{x:225,y:130},corr:'A'},
+ print:{x:280,y:130,w:190,h:90,name:'PRINT FLOOR',floor:'#14263a',door:{x:330,y:130},corr:'A'},
+ mail:{x:10,y:250,w:140,h:45,name:'MAIL ROOM',floor:'#172a44',door:{x:80,y:250},corr:'B'},
+ cash:{x:165,y:250,w:135,h:45,name:'CASH OFFICE',floor:'#33260f',door:{x:232,y:250},corr:'B'},
+ dock:{x:315,y:250,w:155,h:45,name:'LOADING DOCK',floor:'#1e2433',door:{x:430,y:250},corr:'B'}
+};
+const CORR={A:115,B:235},VERT=[177,272];
+function route(fromRoom,toRoom,tx,ty){
+ if(fromRoom===toRoom)return [{x:tx,y:ty}];
+ const a=ROOMS[fromRoom],b=ROOMS[toRoom],da=a.door,db=b.door;
+ const points=[{x:da.x,y:da.y},{x:da.x,y:CORR[a.corr]}];
+ if(a.corr!==b.corr){const connector=VERT.reduce((best,v)=>Math.abs(v-da.x)+Math.abs(v-db.x)<Math.abs(best-da.x)+Math.abs(best-db.x)?v:best);points.push({x:connector,y:CORR[a.corr]},{x:connector,y:CORR[b.corr]});}
+ points.push({x:db.x,y:CORR[b.corr]},{x:db.x,y:db.y},{x:tx,y:ty});return points;
+}
+const cv=document.getElementById('map');let ctx=cv.getContext('2d');
+let VW=RW,VH=RH,camX=0,camY=0,zoomed=false;
+function hex(c){c=c.replace('#','');return[parseInt(c.slice(0,2),16),parseInt(c.slice(2,4),16),parseInt(c.slice(4,6),16)]}
+function shade(c,f){const[r,g,b]=hex(c);const t=f<0?0:255,p=Math.abs(f);return'rgb('+Math.round((t-r)*p+r)+','+Math.round((t-g)*p+g)+','+Math.round((t-b)*p+b)+')'}
+function R(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),w,h)}
+function T(s,x,y,c,al){ctx.font='8px Silkscreen, monospace';ctx.textAlign=al||'left';ctx.textBaseline='alphabetic';ctx.fillStyle=c;ctx.fillText(s,Math.round(x),Math.round(y))}
+const OUT='#05071a',WALL='#d7dcea',WALL2='#8b93b5';
+
+const STARS=Array.from({length:120},(_,i)=>({x:(i*97)%RW,y:(i*53)%RH,p:i%7}));
+function drawSpace(t){R(0,0,RW,RH,'#05071a');for(const s of STARS)R(s.x,s.y,1,1,Math.sin(t*1.2+s.p)>.6?'#c7d2fe':'#2e3466')}
+function drawCorridors(){
+  const cf='#1b1f3d';
+  R(6,CORR.A-8,468,16,cf);R(6,CORR.B-8,468,16,cf);VERT.forEach(v=>R(v-7,CORR.A,14,CORR.B-CORR.A,cf));
+  // hallway stripes
+  for(let x=10;x<470;x+=12){R(x,CORR.A,6,1,'#2b3166');R(x,CORR.B,6,1,'#2b3166')}
+  // hallway edges
+  ctx.strokeStyle='#3a3f78';ctx.lineWidth=1;ctx.strokeRect(6.5,CORR.A-8.5,467,16);ctx.strokeRect(6.5,CORR.B-8.5,467,16);
+  // plants at corners
+  [[14,CORR.A-4],[466,CORR.A-4],[14,CORR.B-4],[466,CORR.B-4],[VERT[0],CORR.A+30],[VERT[1],CORR.B-30]].forEach(([x,y])=>{R(x-3,y-3,7,7,'#14532d');R(x-2,y-2,5,5,'#22c55e');R(x-1,y-3,2,2,'#86efac')});
+}
+function roomBox(k,active,t){
+  const r=ROOMS[k];
+  R(r.x,r.y,r.w,r.h,r.floor);
+  for(let x=r.x+2;x<r.x+r.w;x+=10)R(x,r.y+2,1,r.h-4,'rgba(255,255,255,.035)');
+  for(let y=r.y+2;y<r.y+r.h;y+=10)R(r.x+2,y,r.w-4,1,'rgba(255,255,255,.035)');
+  // walls
+  const wc=state.postingPaused?'#f87171':active?'#fbbf24':WALL;
+  R(r.x-2,r.y-2,r.w+4,3,wc);R(r.x-2,r.y+r.h-1,r.w+4,3,wc);R(r.x-2,r.y-2,3,r.h+4,wc);R(r.x+r.w-1,r.y-2,3,r.h+4,wc);
+  R(r.x+1,r.y+1,r.w-2,1,WALL2);
+  // doorway gaps
+  [r.door,r.door2].forEach(d=>{if(!d)return;if(d.y===r.y)R(d.x-6,r.y-2,12,3,'#1b1f3d');else R(d.x-6,r.y+r.h-1,12,3,'#1b1f3d')});
+}
+function roomLabel(k,active){const r=ROOMS[k];ctx.font='8px Silkscreen, monospace';const w=Math.ceil(ctx.measureText(r.name).width)+8,x=r.x+6,y=r.y-6;R(x-1,y-1,w+2,12,active?'#fbbf24':WALL);R(x,y,w,10,'#0c1033');T(r.name,x+4,y+8,active?'#fde68a':'#e9e5ff')}
+function glow(){ctx.save();ctx.globalCompositeOperation='lighter';for(const k in ROOMS){const r=ROOMS[k];const g=ctx.createRadialGradient(r.x+r.w/2,r.y+r.h/2,4,r.x+r.w/2,r.y+r.h/2,Math.max(r.w,r.h)*.75);g.addColorStop(0,'rgba(167,139,250,.10)');g.addColorStop(1,'rgba(167,139,250,0)');ctx.fillStyle=g;ctx.fillRect(r.x-20,r.y-20,r.w+40,r.h+40)}ctx.restore()}
+function desk(x,y,w,h){R(x,y,w,h,'#5b3a29');R(x,y,w,1,'#7a5137');R(x,y+h-1,w,1,'#3b2618')}
+function screen(x,y,w,h,on,t){R(x-1,y-1,w+2,h+2,OUT);R(x,y,w,h,on?'#0f3b4a':'#0f1d3a');for(let i=0;i<Math.floor(h/2);i++)R(x+1,y+1+i*2,on?(2+((i*5+Math.floor(t*8))%(w-3))):w-3,1,on?'#5eead4':'#3b82f6')}
+function props(t){
+  // Trend Lab: big window strip, telescope, trend screens
+  R(14,13,92,4,'#93c5fd');R(14,17,92,1,'#1e3a8a');
+  ctx.fillStyle='#cbd5e1';ctx.beginPath();ctx.arc(28,40,5,0,7);ctx.fill();R(28,38,14,4,'#94a3b8');if(BY.radar.work>0&&Math.sin(t*12)>0)R(43,38,3,3,'#fde68a');
+  screen(70,30,30,16,BY.radar.work>0,t);R(72,48,26,1,'#475569');desk(66,84,40,8);
+  // Design Studio: easels + paint
+  [[140,30],[175,30]].forEach(([x,y],i)=>{R(x-1,y-1,24,18,OUT);R(x,y,22,16,'#f8fafc');R(x+3,y+3,16,8,i?'#bae6fd':'#fbcfe8');R(x+6,y+5,10,4,i?'#0284c7':'#db2777')});
+  [[210,80,'#ef4444'],[218,80,'#3b82f6'],[226,80,'#22c55e']].forEach(([x,y,c])=>{R(x,y,6,6,OUT);R(x+1,y+1,4,4,c)});
+  if(BY.pixel.work>0){const k=Math.floor(t*6)%3;R(146+k*5,42,2,2,['#22c55e','#3b82f6','#f59e0b'][k])}
+  // Inspection: desk, stamp, sheets
+  desk(262,30,60,14);R(266,32,12,9,'#fef3c7');R(282,32,12,9,'#fef3c7');R(304,31,8,8,'#b91c1c');R(306,29,4,3,'#7f1d1d');
+  if(S.stamp>0)R(281,31,14,11,'rgba(34,197,94,.55)');
+  ctx.strokeStyle='#e3bf74';ctx.lineWidth=2;ctx.beginPath();ctx.arc(330,70,6,0,7);ctx.stroke();R(334,74,6,2,'#e3bf74');
+  // Listing Office: 2 computer desks, label maker
+  desk(375,26,40,12);screen(380,18,14,9,BY.clerk.work>0,t);screen(398,18,14,9,BY.clerk.work>0,t);
+  desk(425,66,38,12);R(430,62,12,6,'#64748b');R(432,63,5,2,'#86efac');if(BY.tagz.work>0)R(443,64,3+(Math.floor(t*8)%6),2,'#f8fafc');
+  // Marketing Hall: corkboard, camera, ring light, stage
+  R(18,134,40,4,'#7a5137');for(let i=0;i<5;i++)R(20+i*7,139,5,5,['#fef3c7','#fbcfe8','#bfdbfe','#bbf7d0','#fde68a'][i]);
+  ctx.strokeStyle='#fde68a';ctx.lineWidth=1;ctx.beginPath();ctx.arc(108,175,7,0,7);ctx.stroke();
+  R(98,192,8,6,'#1f2937');R(99,193,2,2,BY.reel.work>0&&Math.sin(t*10)>0?'#ef4444':'#7f1d1d');
+  R(128,186,36,26,'#5b3a29');R(128,186,36,2,'#a16207');R(136,176,20,8,'#ef4444');T('SALE',146,183,'#fef3c7','center');
+  if(BY.buzz.work>0){ctx.strokeStyle='rgba(253,186,116,.85)';for(let i=1;i<=3;i++){ctx.beginPath();ctx.arc(BY.buzz.x+6,BY.buzz.y,i*4+(t*16%4),-.7,.7);ctx.stroke()}}
+  if(BY.pinny.work>0){R(48,140,7,7,'#fbcfe8');R(51,140,1,2,'#e11d48');}
+  // Coach's office: desk + whiteboard
+  R(192,136,40,14,'#cbd5e1');R(194,138,36,10,'#f8fafc');R(196,140,14,1,'#2563eb');R(196,143,20,1,'#16a34a');R(196,146,10,1,'#ef4444');desk(232,190,26,14);
+  // Print Floor: presses, racks, conveyor, packing
+  for(let i=0;i<2;i++){const px=292+i*34,down=S.press&&i===0;R(px,150,26,20,'#475569');R(px+2,152,22,16,'#64748b');R(px+3,down?156:153,20,5,'#e2e8f0');
+    if(down)for(let k=0;k<3;k++)R(px+5+k*6,148-((Math.floor(t*10)+k)%5),2,2,'rgba(226,232,240,.75)')}
+  for(let i=0;i<8;i++){R(368+i*6,140,4,12,['#ef4444','#f8fafc','#1e3a8a','#facc15','#16a34a','#ec4899','#111827','#e7d6b9'][i])}R(366,139,50,1,'#94a3b8');
+  R(300,196,120,8,'#334155');for(let x=300;x<420;x+=6)R(x+((Math.floor((BY.hauler.work>0?t:0)*12))%6),199,2,2,'#64748b');
+  desk(426,178,38,16);R(432,180,10,8,'#c08a52');R(432,180,10,2,'#d9a46a');R(446,182,6,6,'#cbd5e1');
+  // Mail room
+  desk(20,262,50,12);R(26,264,10,6,'#f8fafc');R(40,264,10,6,'#fef3c7');R(110,262,16,16,'#7c5a3a');R(112,264,12,12,'#a07a50');if(BY.postie.work>0)R(28,265,6,1,'#1d4ed8');
+  R(112,266,12,3,'#05071a');
+  // Cash office
+  desk(180,262,60,14);R(196,258,22,10,'#475569');R(198,260,18,4,'#86efac');R(266,262,20,22,'#334155');R(268,264,16,18,'#475569');R(281,272,2,2,'#fbbf24');
+  if(S.drawer>0){R(196,268,22,3,'#e2e8f0');const coinY=reduce?246:247-Math.round((1.3-S.drawer)*8);R(205,coinY,5,5,'#fbbf24');R(207,coinY+1,1,3,'#fff7ae');}
+  // Loading dock: roll-up door and van
+  for(let y=258;y<292;y+=4)R(468-S.doorOpen*0,y,2,3,'#64748b');
+  R(330,262,20,14,'#c08a52');R(352,268,14,10,'#c08a52');
+  R(466,255,3,39,'#64748b');for(let y=257;y<290;y+=4)R(466,y,3,1,'#b8c2d3');drawVan(S.vanX,262);
+}
+function drawVan(x,y){R(x-1,y-1,42,22,OUT);R(x,y,40,20,'#f8fafc');R(x+30,y+2,9,16,'#93c5fd');R(x+2,y+8,26,3,'#F59E0B');R(x+4,y-2,6,2,OUT);R(x+26,y-2,6,2,OUT);R(x+4,y+20,6,2,OUT);R(x+26,y+20,6,2,OUT)}
+
+// robots, top-down
+
+
+function drawRobot(r,t,portraitMode=false){
+ const x=Math.round(r.x),y=Math.round(r.y),moving=r.path.length>0;
+ const step=!reduce&&moving?Math.floor(t*9)%2:0,bob=!reduce&&r.work>0?-(Math.floor(t*6)%2):0;
+ const hi=shade(r.c,.32),sh=shade(r.c,-.28),wide=r.id==='hauler'?7:r.id==='tagz'?4:5;
+ ctx.fillStyle='rgba(0,0,0,.42)';ctx.beginPath();ctx.ellipse(x,y+5,wide+1,2,0,0,7);ctx.fill();
+ R(x-4,y+2+step,3,2,OUT);R(x+1,y+3-step,3,2,OUT);
+ if(r.id==='pinny'){R(x-4,y-5+bob,9,3,OUT);R(x-6,y-2+bob,13,6,OUT);R(x-5,y-1+bob,11,4,r.c)}
+ else if(r.id==='buzz'||r.id==='penny'){R(x-wide+1,y-5+bob,wide*2-1,10,OUT);R(x-wide,y-3+bob,wide*2+1,6,OUT);R(x-wide+1,y-3+bob,wide*2-1,6,r.c)}
+ else{R(x-wide-1,y-5+bob,wide*2+2,10,OUT);R(x-wide,y-4+bob,wide*2,8,r.c);R(x-wide,y-4+bob,wide*2,1,hi);R(x-wide,y+3+bob,wide*2,1,sh)}
+ R(x-wide-3,y-2+bob+step,2,4,OUT);R(x+wide+1,y-2+bob-step,2,4,OUT);
+ if(r.id==='postie'){R(x-6,y-12+bob,12,9,OUT);R(x-5,y-11+bob,10,7,hi);R(x-4,y-10+bob,8,1,r.hat);R(x-2,y-9+bob,4,1,r.hat)}
+ else if(r.id==='reel'){R(x-6,y-12+bob,13,9,OUT);R(x-5,y-11+bob,11,7,'#475569');R(x-2,y-10+bob,6,5,'#0e172c');R(x,y-9+bob,2,2,'#7dd3fc');R(x+6,y-10+bob,3,5,r.c);R(x-5,y-14+bob,4,2,r.hat)}
+ else{R(x-5,y-12+bob,10,9,OUT);R(x-4,y-11+bob,8,7,hi);R(x-4,y-11+bob,8,2,r.hat)}
+ if(r.id!=='reel'){
+  const ex=r.dir>0?1:-1,closed=!reduce&&Math.floor(t*2+r.blinkSeed)%11===0;
+  R(x-3,y-8+bob,6,3,'#0b1530');if(!closed){R(x-2+ex,y-8+bob,1,1,'#7dd3fc');R(x+1+ex,y-8+bob,1,1,'#7dd3fc')}
+ }
+ // Different silhouettes, headgear and hand tools; not one recolored sprite.
+ switch(r.id){
+  case 'radar':R(x-1,y-15+bob,1,3,'#d7dcea');R(x-2,y-16+bob,3,2,'#38bdf8');R(x+5,y-6+bob,8,3,'#94a3b8');R(x+11,y-7+bob,2,5,'#d7dcea');break;
+  case 'pixel':R(x-6,y-13+bob,12,3,'#9d174d');R(x-1,y-15+bob,3,2,'#f472b6');R(x-3,y-3+bob,6,6,'#fdf2f8');R(x-1,y-1+bob,2,2,'#db2777');R(x+7,y-8+bob,1,8,'#c08a52');R(x+6,y-10+bob,3,3,'#ec4899');break;
+  case 'badge':R(x-6,y-13+bob,12,2,'#1e40af');R(x-1,y-12+bob,2,2,'#fde68a');R(x-2,y-3+bob,4,4,'#d97706');R(x+7,y-4+bob,2,6,'#d9b56c');R(x+5,y-8+bob,6,5,'#d9b56c');R(x+6,y-7+bob,4,3,'#7dd3fc');break;
+  case 'clerk':R(x-5,y-14+bob,10,2,'#4c1d95');R(x-4,y-9+bob,8,1,'#312e81');R(x-5,y-1+bob,11,4,'#cbd5e1');R(x-3,y+bob,1,1,'#475569');R(x,y+bob,1,1,'#475569');R(x+3,y+bob,1,1,'#475569');break;
+  case 'tagz':R(x+3,y-13+bob,4,4,'#c4b5fd');R(x-3,y-1+bob,6,2,'#6d28d9');R(x+5,y-5+bob,6,5,'#64748b');R(x+9,y-4+bob,5,2,'#f8fafc');break;
+  case 'pinny':R(x-6,y-13+bob,11,2,'#0f766e');R(x+3,y-14+bob,3,3,'#fda4af');R(x+6,y-6+bob,2,6,'#e2e8f0');R(x+5,y-8+bob,4,3,'#fb7185');break;
+  case 'reel':R(x-2,y-3+bob,4,5,'#0f766e');R(x+7,y-3+bob,1,8,'#cbd5e1');R(x+5,y+3+bob,2,1,'#cbd5e1');R(x+8,y+3+bob,2,1,'#cbd5e1');break;
+  case 'buzz':R(x-5,y-14+bob,8,3,'#c2410c');R(x+5,y-6+bob,3,4,'#fed7aa');R(x+8,y-8+bob,4,8,'#f97316');R(x+9,y-7+bob,2,6,'#7c2d12');break;
+  case 'coach':R(x-6,y-13+bob,12,2,'#365314');R(x,y-3+bob,2,2,'#fbbf24');R(x+5,y-7+bob,6,9,'#c08a52');R(x+6,y-6+bob,4,6,'#f8fafc');R(x+7,y-4+bob,2,1,'#365314');break;
+  case 'hauler':R(x-6,y-14+bob,12,3,'#eab308');R(x-7,y-12+bob,14,2,'#ca8a04');R(x-3,y-3+bob,6,7,'#32543a');R(x-4,y-3+bob,1,6,'#fbbf24');R(x+3,y-3+bob,1,6,'#fbbf24');R(x+8,y-6+bob,3,7,'#94a3b8');break;
+  case 'postie':R(x-2,y-1+bob,7,5,'#854d0e');R(x-1,y+bob,5,3,'#fef3c7');R(x,y+bob,3,1,'#1d4ed8');R(x+7,y-7+bob,1,7,'#1d4ed8');break;
+  case 'penny':R(x-5,y-14+bob,10,2,'#be123c');R(x-4,y-9+bob,8,1,'#be123c');R(x-2,y-2+bob,4,4,'#a16207');R(x+6,y-7+bob,5,5,'#fbbf24');R(x+7,y-6+bob,3,3,'#fef08a');break;
+ }
+ if(r.carry)drawItem(r.carry,x,y-19+bob);
+ if(!portraitMode&&labelsVisible&&(r.busy||S.focus===r.id)){
+  ctx.font='8px Silkscreen, monospace';const width=ctx.measureText(r.name.toUpperCase()).width+6;
+  R(x-width/2,y+7,width,10,'#05071ae8');T(r.name.toUpperCase(),x,y+15,r.c,'center');
+ }
+ if(!portraitMode&&r.bubble&&labelsVisible)drawBubble(r.bubble,x,y-19+bob-(r.carry?6:0));
+}
+function drawItem(k,x,y){
+ if(k==='box'){R(x-6,y-4,12,9,OUT);R(x-5,y-3,10,7,'#c08a52');R(x-1,y-3,2,7,'#e9d5b5');return;}
+ R(x-5,y-4,10,8,OUT);R(x-4,y-3,8,6,k==='card'?'#fef3c7':'#f8fafc');R(x-2,y-1,4,2,k==='card'?'#d97706':'#ec4899');if(k==='stamped')R(x+1,y,3,2,'#16a34a');
+}
+function drawBubble(s,x,y){
+ ctx.font='8px Silkscreen, monospace';const w=Math.max(14,ctx.measureText(s).width+8);
+ x=Math.max(camX+w/2+3,Math.min(camX+VW-w/2-3,x));y=Math.max(camY+15,y);
+ R(x-w/2-1,y-11,w+2,11,OUT);R(x-w/2,y-10,w,9,'#f8fafc');R(x-1,y,3,2,OUT);T(s,x,y-3,'#0B132B','center');
+}
+const FX=[];
+function reward(s,r,c='#fde68a'){FX.push({s,x:r.x,y:r.y-24,c,life:2.2});}
+function drawFX(){for(const f of FX){if(!labelsVisible)continue;ctx.font='8px Silkscreen, monospace';const width=ctx.measureText(f.s).width+6;const x=Math.max(camX+width/2+3,Math.min(camX+VW-width/2-3,f.x)),y=Math.max(camY+12,f.y);R(x-width/2,y-8,width,11,'#05071ae8');T(f.s,x,y,f.c,'center');}}
+function portrait(r){
+ const canvas=document.createElement('canvas');canvas.width=32;canvas.height=32;canvas.setAttribute('aria-hidden','true');const previous=ctx;ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+ drawRobot({...r,x:15,y:22,path:[],carry:null,bubble:null,work:0},1,true);ctx=previous;return canvas;
+}
+let TT=0,last=performance.now(),labelsVisible=true;
+const waits=[];
+function delay(ms,token=epoch){return new Promise((resolve,reject)=>waits.push({time:reduce?Math.min(ms,120)/1000:ms/1000,resolve,reject,token}));}
+function goTo(r,room,x,y,token=epoch){
+ if(token!==epoch)return Promise.reject(new Error('Preview reset'));
+ r.busy=true;r.path=route(r.room,room,x,y);
+ if(reduce){r.x=x;r.y=y;r.path=[];r.room=room;if(currentEvent?.robot===r.id)activeRoom=room;return Promise.resolve();}
+ return new Promise((resolve,reject)=>{r.arrive=()=>{r.room=room;if(currentEvent?.robot===r.id)activeRoom=room;resolve();};r.reject=reject;});
+}
+function home(r,token){return goTo(r,r.home,r.hx,r.hy,token);}
+function near(r,to,token){const rm=ROOMS[to.room];return goTo(r,to.room,Math.min(rm.x+rm.w-11,to.x+12),Math.max(rm.y+23,to.y),token);}
+async function handoff(a,b,item,token){a.carry=item;follow(a);await near(a,b,token);a.carry=null;b.bubble='RECEIVED';await delay(350,token);b.bubble=null;await home(a,token);}
+async function work(r,text,ms=1000,token=epoch){r.busy=true;await home(r,token);r.work=1;r.bubble=text;activeRoom=r.home;follow(r);await delay(ms,token);r.work=0;r.bubble=null;}
+function follow(r){if(!S.focus&&!S.overview)S.cam=r.id;}
+function fit(){
+ const width=cv.parentElement.clientWidth;zoomed=window.innerWidth<=900&&!S.overview;
+ VW=zoomed?Math.max(150,Math.floor(width/2)):RW;VH=zoomed?200:RH;
+ cv.width=VW;cv.height=VH;ctx.imageSmoothingEnabled=false;labelsVisible=width/VW>=1.45;
+ if(!zoomed){camX=0;camY=0;}else{const target=BY[S.focus||S.cam||'radar'];camX=Math.max(0,Math.min(RW-VW,target.x-VW/2));camY=Math.max(0,Math.min(RH-VH,target.y-VH/2));}
+ updateMapLabel();draw();
+}
+function updateMapLabel(){const r=BY[S.focus||S.cam];$('following').textContent=S.overview?'Whole shop overview':S.focus?'Following '+r.name:zoomed?'Camera follows '+(r?r.name:'the active robot'):'Watching the whole shop';$('btnAll').setAttribute('aria-pressed',String(S.overview));$('btnFollow').setAttribute('aria-pressed',String(!S.overview&&!S.focus));}
+function initTargets(){const layer=$('robot-targets');layer.replaceChildren();CREW.forEach(r=>{const b=document.createElement('button');b.type='button';b.className='robot-target';b.dataset.robot=r.id;b.setAttribute('aria-label',r.name+', '+r.job+'. Open crew details.');b.title=r.name+' · '+r.job;b.onclick=()=>selectRobot(r.id);layer.append(b);});}
+function updateTargets(){const w=cv.clientWidth,h=cv.clientHeight;document.querySelectorAll('.robot-target').forEach(b=>{const r=BY[b.dataset.robot],x=(r.x-camX)/VW*w,y=(r.y-5-camY)/VH*h;b.hidden=x<22||x>w-22||y<22||y>h-22;b.style.left=x+'px';b.style.top=y+'px';});}
+function update(dt){
+ TT+=dt;
+ for(let i=waits.length-1;i>=0;i--){const w=waits[i];if(w.token!==epoch){waits.splice(i,1);w.reject(new Error('Preview reset'));continue;}w.time-=dt;if(w.time<=0){waits.splice(i,1);w.resolve();}}
+ for(const r of CREW){
+  if(r.path.length){const p=r.path[0],dx=p.x-r.x,dy=p.y-r.y,d=Math.hypot(dx,dy),sp=90*dt;if(Math.abs(dx)>.2)r.dir=dx>0?1:-1;
+   if(reduce||d<=sp){r.x=p.x;r.y=p.y;r.path.shift();if(!r.path.length&&r.arrive){const arrive=r.arrive;r.arrive=null;r.reject=null;arrive();}}
+   else{r.x+=dx/d*sp;r.y+=dy/d*sp;}
+  }else if(!reduce&&!r.busy&&r.room===r.home){r.idleT-=dt;if(r.idleT<=0){r.idleT=4+Math.random()*4;const rm=ROOMS[r.home];r.path=[{x:Math.max(rm.x+13,Math.min(rm.x+rm.w-13,r.hx+(Math.random()-.5)*18)),y:Math.max(rm.y+24,Math.min(rm.y+rm.h-8,r.hy+(Math.random()-.5)*7))}];}}
+ }
+ S.stamp=Math.max(0,S.stamp-dt);S.drawer=Math.max(0,S.drawer-dt);
+ if(S.vanState==='leave'){S.vanX+=reduce?500:70*dt;if(S.vanX>505){S.vanX=380;S.vanState='parked';}}
+ for(let i=FX.length-1;i>=0;i--){FX[i].life-=dt;if(!reduce)FX[i].y-=8*dt;if(FX[i].life<=0)FX.splice(i,1);}
+ const target=BY[S.focus||S.cam||'radar'];let x=zoomed?Math.max(0,Math.min(RW-VW,target.x-VW/2)):0,y=zoomed?Math.max(0,Math.min(RH-VH,target.y-VH/2)):0;
+ if(reduce){camX=x;camY=y;}else{camX+=(x-camX)*Math.min(1,dt*4);camY+=(y-camY)*Math.min(1,dt*4);}
+ updateMapLabel();
+}
+function draw(){
+ ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,VW,VH);ctx.setTransform(1,0,0,1,-Math.round(camX),-Math.round(camY));
+ const t=reduce||S.paused?0:TT;
+ drawSpace(t);drawCorridors();Object.keys(ROOMS).forEach(k=>roomBox(k,k===activeRoom,t));props(t);glow();
+ CREW.slice().sort((a,b)=>a.y-b.y).forEach(r=>drawRobot(r,t));drawFX();
+ if(labelsVisible)Object.keys(ROOMS).forEach(k=>roomLabel(k,k===activeRoom));
+ updateTargets();
+}
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;if(!S.paused)update(dt);draw();requestAnimationFrame(frame);}
+window.addEventListener('resize',fit);
+motionQuery.addEventListener('change',e=>{reduce=e.matches;if(reduce)CREW.forEach(r=>{if(r.path.length){const end=r.path.at(-1);r.x=end.x;r.y=end.y;r.path=[];if(r.arrive){const a=r.arrive;r.arrive=null;r.reject=null;a();}}});updateMotionNote();fit();});
+
+function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,4200);}
+function intro(kicker,title,description){return `<div class="page-intro"><div><div class="eyebrow">${kicker}</div><h2>${title}</h2><p>${description}</p></div></div>`;}
+function pill(text,kind=''){return `<span class="pill ${kind}">${esc(text)}</span>`;}
+function capFor(day,platform,preview='current'){
+ if(platform==='Etsy'){const age=Math.floor((Date.parse(day)-Date.parse(SHOP_OPEN))/86400000);if(preview==='new'||preview==='current'&&age<14)return 1;return hash(day)%2?2:3;}
+ return platform==='Pinterest'?5:1;
+}
+function weekOf(day){const date=new Date(day+'T12:00:00Z'),weekday=date.getUTCDay();return addDays(day,-((weekday+6)%7));}
+function availableSlots(platform,limit=8,reservations=state.queue,preview='current',launch=null){
+ reservations=[...new Map([...state.postedJobs,...reservations].map(j=>[j.id,j])).values()];
+ const result=[];let base=launch&&launch>dayKey(SAMPLE_NOW)?launch:dayKey(SAMPLE_NOW);
+ if(preview==='established'&&base<'2026-10-26')base='2026-10-26';
+ for(let offset=0;offset<80&&result.length<limit;offset++){
+  const day=addDays(base,offset),cap=capFor(day,platform,preview),taken=reservations.filter(j=>j.platform===platform&&dayKey(j.at)===day);
+  const used=new Set(taken.map(j=>j.slotIndex));
+  for(let i=0;i<cap&&result.length<limit;i++){
+   if(used.has(i))continue;
+   const center=cap===1?14*60:cap<=3?[10*60,15*60,20*60][i]:8*60+i*160;
+   const jitter=hash(platform+day+i)%121-60,minutes=Math.max(7*60,Math.min(23*60+59,center+jitter));
+   const at=easternISO(day,Math.floor(minutes/60),minutes%60);
+   if(Date.parse(at)<=+SAMPLE_NOW)continue;
+   const minGap=platform==='Etsy'?3*3600000:platform==='Pinterest'?60*60000:0;
+   if(taken.some(j=>Math.abs(Date.parse(j.at)-Date.parse(at))<minGap))continue;
+   result.push({platform,at,slotIndex:i});
+  }
+ }
+ return result;
+}
+function approvalForecast(){const forecast={},reserved=state.queue.slice();for(const d of state.designs.filter(d=>d.state==='pending')){forecast[d.id]=[];for(const [platform,on]of Object.entries(d.shops)){if(!on)continue;const slot=availableSlots(platform,1,reserved,'current',TRENDS.find(t=>t.id===d.trend).launch)[0];if(slot){const j={...slot,id:'forecast-'+d.id+'-'+platform,designId:d.id,title:d.title};reserved.push(j);forecast[d.id].push(j);}}}return forecast;}
+function queueHold(job){if(state.postingPaused)return 'Safety stop';if(state.weekly==='skipped')return 'Week skipped';if(state.weekly!=='released')return 'Weekly approval needed';if(weekOf(dayKey(job.at))!==WEEK)return 'Next week’s approval needed';return null;}
+function queueMarkup(limit=100){if(!state.queue.length)return '<li class="empty">No approved designs are queued yet. Approve a card to reserve its posting slot.</li>';return state.queue.slice().sort((a,b)=>Date.parse(a.at)-Date.parse(b.at)).slice(0,limit).map(j=>`<li><span><strong>${esc(j.title)}</strong><small>${esc(j.platform)} · ${fullSlot(j.at)}</small><small>${queueHold(j)?'Reserved slot · held until the required approval':'Ready for an explicit sample-slot test'}</small></span>${pill(queueHold(j)||'Approved',queueHold(j)?'warn':'good')}</li>`).join('');}
+function updateMotionNote(){$('motion-note').textContent=reduce?'Reduced motion is on: travel jumps to destinations; idle movement, blinking and floating motion are off.':'Robots travel for recorded events. Idle strolls stay inside their home rooms. Pause motion also pauses the sample story.';}
+function renderHud(){
+ const values=[['Est. profit',money(stats.profit),'#f59e0b'],['Orders',stats.orders,'#4ade80'],['Live shirts',stats.live,'#93c5fd'],['Visits',number(stats.visits),'#a78bfa'],['To approve',stats.toApprove,'#f9a8d4']];
+ $('hud').innerHTML=values.map(([label,value,color])=>`<span class="res"><i style="background:${color}"></i>${label}<b>${value}</b></span>`).join('')+'<span class="res clock">Sample week · Oct 12–18 · ET</span>';
+ $('nav-count').textContent=stats.toApprove;$('home-queue').innerHTML=queueMarkup(3);
+ $('story-progress').textContent=`${stats.trends} trends · ${stats.designs} designs · ${stats.approved} approved · ${stats.pins} pins · ${stats.videos} videos · all sample. `+(storageAvailable?'Decisions save on this browser.':'Browser storage is unavailable; this session still works.');
+ $('safety-button').textContent=state.postingPaused?'Resume sample posting':'Pause all posting';
+ const notice=$('safety-notice');notice.hidden=!state.postingPaused;notice.className='notice danger';notice.innerHTML='<strong>All posting is paused.</strong> Queued work is held across every platform. Existing orders continue shipping. An alert email would be sent in the live system; this preview sends no email.';
+ $('btnStory').textContent=sequenceRunning?'Stop sample story':'Play sample story';$('btnStory').setAttribute('aria-pressed',String(sequenceRunning));
+ $('btnNext').disabled=animationBusy;$('btnNext').textContent=animationBusy?'Playing event…':'Play next event';
+ updateMotionNote();
+}
+function renderFeed(initial=false){
+ const ids=[...processed].reverse().slice(0,30),list=$('feed');
+ if(initial)list.replaceChildren();
+ for(const id of ids.slice().reverse()){
+  if(list.querySelector(`[data-event="${CSS.escape(id)}"]`))continue;
+  const e=events.find(x=>x.id===id);if(!e)continue;const li=document.createElement('li');li.dataset.event=id;
+  li.innerHTML=`<time datetime="${esc(e.at)}">${timeLabel(e.at)}</time><span><strong>${esc(BY[e.robot]?.name||'Shop')}</strong> ${esc(e.text)} <span class="sample-label">· sample</span></span>`;list.prepend(li);
+ }
+ while(list.children.length>30)list.lastElementChild.remove();
+}
+function makeRow(html,action,avatar){const b=document.createElement('button');b.type='button';b.className='row';b.innerHTML=html;if(avatar)b.querySelector('.av').append(avatar);b.onclick=action;return b;}
+function backButton(){const b=document.createElement('button');b.type='button';b.className='back';b.textContent='← Back to '+({crew:'crew',traffic:'traffic',orders:'orders',live:'live shirts'}[panelTab]);b.onclick=()=>{panelDetail=null;renderPane();$('pane').focus({preventScroll:true});};return b;}
+function kv(items){return '<div class="kv">'+items.map(([label,value])=>`<div><small>${label}</small><b>${value}</b></div>`).join('')+'</div>';}
+function robotStatus(r){return r.busy?'Working':stats.robots.find(x=>x.id===r.id)?.status||'Ready';}
+function bookHistoryMarkup(id){const book=state.books[id];return book.history.slice().reverse().map((entry,i)=>{const baseline=entry.version==='1.0';return `<div class="playbook-entry"><strong>v${esc(entry.version)} ${book.current===entry.version?pill('Current','good'):''}</strong><small>${dateLabel(entry.at)} · ${esc(entry.evidence)}</small><p>${esc(entry.summary)}</p><button class="btn quiet" data-book="${id}" data-version="${esc(entry.version)}">${baseline?'Restore v1.0':'Undo v'+esc(entry.version)}</button></div>`;}).join('');}
+function renderPane(){
+ const pane=$('pane'),oldScroll=pane.scrollTop;document.querySelectorAll('[data-tab]').forEach(b=>{const on=b.dataset.tab===panelTab;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;});pane.setAttribute('aria-labelledby','tab-'+panelTab);pane.replaceChildren();
+ if(panelTab==='crew'){
+  if(panelDetail){
+   const r=BY[panelDetail];if(!r){panelDetail=null;return renderPane();}const book=state.books[r.id],active=book.history.find(v=>v.version===book.current)||book.history[0];
+   const d=document.createElement('div');d.className='detail';d.append(backButton());const head=document.createElement('div');head.className='portrait-head';head.append(portrait(r));head.insertAdjacentHTML('beforeend',`<div><h4>${r.name}</h4><small class="muted">${r.job} · ${robotStatus(r)}</small><div class="xp" aria-label="Level ${r.lv}, ${Math.round(r.xp*100)} percent progress"><span style="width:${r.xp*100}%"></span></div><small class="muted">Level ${r.lv} · playbook v${book.current}</small></div>`);d.append(head);
+   d.insertAdjacentHTML('beforeend',`<h3>What it does</h3><p>${esc(r.what)}</p><h3>When it works</h3><p>${esc(r.when)}</p><h3>What it needs from you</h3><p>${esc(r.needs)}</p><h3>Current rules</h3><ul>${active.rules.map(rule=>`<li>${esc(rule)}</li>`).join('')}</ul><h3>Recent sample actions</h3><ul>${[...processed].reverse().map(id=>events.find(e=>e.id===id)).filter(e=>e?.robot===r.id).slice(0,3).map(e=>`<li>${esc(e.text)}</li>`).join('')||r.recent.map(s=>`<li>${esc(s)}</li>`).join('')}</ul><h3>Playbook history</h3><p class="muted">Undo restores the rules before that change and records a new version. History is retained.</p>${bookHistoryMarkup(r.id)}`);
+   if(r.id==='postie')d.insertAdjacentHTML('beforeend','<h3>Draft only · sample</h3><p>“Thanks for your order! I hope your new shirt brings a little joy to your day. If you have a question, reply here and I’ll help.”</p><p class="muted">Owner reviews and sends in Etsy. No message has been sent.</p>');
+   if(r.id==='buzz')d.insertAdjacentHTML('beforeend',promoMarkup());
+   pane.append(d);bindLocal(pane);pane.scrollTop=oldScroll;return;
+  }
+  pane.insertAdjacentHTML('beforeend','<p class="small muted">Your 12 robots · sample statuses. Select a robot to see its rules and Undo history.</p>');
+  CREW.forEach(r=>pane.append(makeRow(`<span class="av"></span><span class="rowcopy"><b>${r.name} · Lv ${r.lv}</b><small>${r.job} · v${state.books[r.id].current}</small><div class="xp" aria-hidden="true"><span style="width:${r.xp*100}%"></span></div></span><span class="right">${pill(robotStatus(r),robotStatus(r)==='Needs you'?'warn':r.busy?'good':'')}</span>`,()=>selectRobot(r.id),portrait(r))));
+ }
+ if(panelTab==='traffic'){
+  if(panelDetail){const s=state.traffic.sources.find(x=>x.name===panelDetail);const d=document.createElement('div');d.className='detail';d.append(backButton());d.insertAdjacentHTML('beforeend',`<h4>${esc(s.name)}</h4>${kv([['Visits',number(s.visits)],['Clicks to listing',number(s.clicks)],['Attributed orders',number(s.orders)],['Order conversion',percent(s.orders,s.visits)]])}<p><strong>Top shirt:</strong> ${esc(s.topShirt||'Unavailable')}</p><p><strong>Robot:</strong> ${esc(BY[s.robot]?.name||'No assigned robot')}</p><p class="muted">Conversion uses orders ÷ visits for this sample period. Attribution can be incomplete. Missing metrics stay Unavailable.</p>`);pane.append(d);return;}
+  pane.insertAdjacentHTML('beforeend',kv([['Visits this week',number(stats.visits)],['Attributed orders',state.traffic.sources.reduce((a,s)=>a+s.orders,0)]])+`<p class="small muted">Seven sample days · Oct 12–18</p><div class="bars" role="img" aria-label="Daily visits: ${state.traffic.week.join(', ')}">${state.traffic.week.map((v,i)=>`<span class="bar-col"><i style="height:${Math.round(v/Math.max(...state.traffic.week)*69)}px"></i><small>${['M','T','W','T','F','S','S'][i]}</small></span>`).join('')}</div>`);
+  const max=Math.max(...state.traffic.sources.map(s=>s.visits));state.traffic.sources.forEach(s=>pane.append(makeRow(`<span class="rowcopy"><b>${esc(s.name)}</b><small>${s.orders} attributed orders · ${BY[s.robot]?.name||'Direct traffic'}</small><div class="srcbar"><span style="width:${s.visits/max*100}%;background:${s.color}"></span></div></span><span class="right"><b>${number(s.visits)}</b>visits</span>`,()=>{panelDetail=s.name;renderPane();pane.scrollTop=0;})));
+ }
+ if(panelTab==='orders'){
+  if(panelDetail){const o=state.orders.find(x=>x.id===panelDetail),d=document.createElement('div');d.className='detail';d.append(backButton());const design=designForListing({designId:o.designId,title:o.shirt});d.insertAdjacentHTML('beforeend',`<h4>Order #${esc(o.id)}</h4><p>${esc(o.shirt)} · ${esc(o.color)} · ${esc(o.size)}</p>${shirtMarkup(design)}${kv([['Sale amount',money(o.price)],['Platform fees',money(o.fees)],['Print + shipping',money(o.printShip)],['Estimated order profit',money(o.profit)]])}<p><strong>Source:</strong> ${esc(o.source)}</p><p><strong>Ship to:</strong> ${esc(o.shipTo)}</p><h3>Order timeline</h3><ul class="timeline">${['paid','production','shipped','delivered'].map(step=>{const hit=o.timeline.find(t=>t.step===step);return `<li class="${hit?'done':''}"><i></i><span>${({paid:'Paid',production:'In production',shipped:'Shipped',delivered:'Delivered'})[step]}<small class="muted">${hit?dateLabel(hit.at)+' · '+timeLabel(hit.at)+' ET':'Not yet confirmed'}</small></span></li>`;}).join('')}</ul><p><strong>Tracking:</strong> ${esc(o.tracking||'Not available yet')}</p><p class="muted">Tracking above is sample text. No real carrier page is linked. Full addresses stay outside this dashboard.</p><h3>Sale email · preview only</h3><p><strong>To:</strong> info@visionmakestudio.com<br><strong>Subject:</strong> New order #${esc(o.id)} · ${esc(o.shirt)}</p><p>${esc(o.color)} / ${esc(o.size)} · ${money(o.price)} sale · ${money(o.profit)} estimated order profit.</p><p class="muted">Order profit excludes separately reported shop advertising and refunds. Weekly profit deducts those totals. Final costs still need reconciliation. This preview sends no email.</p>`);pane.append(d);return;}
+  pane.insertAdjacentHTML('beforeend',kv([['Orders this week',stats.orders],['Shop est. profit',money(stats.profit)]])+'<p class="small muted">Shop profit includes the sample advertising spend shown in Monday’s report.</p>');
+  state.orders.forEach(o=>pane.append(makeRow(`<span class="rowcopy"><b>#${o.id} · ${esc(o.shirt)}</b><small>${esc(o.color)} · ${esc(o.size)} · ${money(o.price)}</small><small>${esc(o.source)} · ${dateLabel(o.at||o.timeline[0].at)}</small>${pill(({paid:'Paid',production:'In production',shipped:'Shipped',delivered:'Delivered'})[o.status],o.status==='delivered'?'good':'warn')}</span><span class="right"><b>${money(o.profit)}</b>est. profit</span>`,()=>{panelDetail=o.id;renderPane();pane.scrollTop=0;})));
+ }
+ if(panelTab==='live'){
+  if(panelDetail){const l=state.listings.find(x=>x.id===panelDetail),d=document.createElement('div');d.className='detail';d.append(backButton());d.insertAdjacentHTML('beforeend',`<h4>${esc(l.title)}</h4>${shirtMarkup(designForListing(l))}${kv([['Views',number(l.views)],['Favorites',number(l.favorites)],['All-time sales',number(l.sales)],['Order conversion',percent(l.sales,l.visits)]])}<p class="small muted">Listing conversion uses matching all-time visits, when supplied. Views are not used as a substitute.</p><p><strong>Platforms:</strong> ${esc(l.platforms.join(' + '))}</p><p><strong>Posted:</strong> ${fullSlot(l.postedAt)}</p><p><strong>Trend:</strong> ${esc(l.trend)}</p><p><strong>Tags:</strong> ${esc(l.tags.join(', '))}</p><p><strong>Pins:</strong> ${l.pins} · <strong>Videos:</strong> ${l.videos}</p><h3>Coach’s note</h3><p>${esc(l.lesson||'Not enough data yet. Gather real views, visits and sales before choosing a winner.')}</p><p class="sample-label">Sample mockup · not print-ready artwork</p>`);pane.append(d);return;}
+  pane.insertAdjacentHTML('beforeend',kv([['Live designs',stats.live],['All-time design sales',state.listings.reduce((a,l)=>a+l.sales,0)]])+'<p class="small muted">All entries below are sample listings. This is not your connected Etsy inventory.</p>');
+  state.listings.forEach(l=>pane.append(makeRow(`<span class="av">${miniShirt(designForListing(l).shirt)}</span><span class="rowcopy"><b>${esc(l.title)}</b><small>${esc(l.platforms.join(' + '))} · ${dateLabel(l.postedAt)}</small><small>${l.views} views · ${l.favorites} favorites</small></span><span class="right"><b>${l.sales}</b>sold</span>`,()=>{panelDetail=l.id;renderPane();pane.scrollTop=0;})));
+ }
+ pane.scrollTop=oldScroll;
+}
+function setTab(tab){panelTab=tab;panelDetail=null;renderPane();$('pane').scrollTop=0;}
+function selectRobot(id){S.focus=id;S.overview=false;panelTab='crew';panelDetail=id;if(page!=='shop')navigate('shop');renderPane();$('pane').scrollTop=0;fit();toast('Following '+BY[id].name+' · '+BY[id].job);}
+function pixelArt(kind){
+ const shapes={mug:'<path d="M7 8h17v17H7z M24 11h6v9h-6" fill="none" stroke="currentColor" stroke-width="3"/><path d="M9 30h20M12 1v4M20 1v4" stroke="currentColor" stroke-width="2"/>',flower:'<path d="M18 17v17M18 27l-8-5M18 24l8-6" stroke="currentColor" stroke-width="3"/><path d="M13 3h9v6h6v8h-6v6h-9v-6H7V9h6z" fill="currentColor"/><rect x="14" y="10" width="7" height="7" fill="var(--shirt-color)"/>',cherry:'<path d="M12 18l5-14 10 15M17 4h11" stroke="currentColor" stroke-width="2" fill="none"/><path d="M5 18h12v12H5zM22 19h11v11H22z" fill="currentColor"/>',mountain:'<path d="M2 31L13 10l7 12 5-8 10 17z" fill="currentColor"/><path d="M10 16l3-6 4 7" fill="none" stroke="var(--shirt-color)" stroke-width="2"/><rect x="25" y="3" width="5" height="5" fill="currentColor"/>',bow:'<path d="M4 7l13 7L31 7v16l-14-6L4 23zM16 18l-6 15M20 18l7 15" fill="none" stroke="currentColor" stroke-width="3"/>',sun:'<path d="M12 10h12v13H12zM15 2h6M15 30h6M3 13v7M31 13v7M5 5l4 4M27 26l4 4M5 29l4-4M27 9l4-4" fill="currentColor" stroke="currentColor" stroke-width="2"/>',leaf:'<path d="M6 27C3 8 15 2 31 4c0 17-6 30-25 23z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M6 31L26 9M13 22v-8M19 17h8" stroke="currentColor" stroke-width="2"/>',stars:'<path d="M18 3l3 10 10 3-10 4-3 10-4-10-10-4 10-3z" fill="currentColor"/><rect x="28" y="3" width="3" height="3" fill="currentColor"/>',book:'<path d="M3 7h12l3 3 3-3h12v23H21l-3 3-3-3H3zM18 10v23" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 13h7M6 18h7M23 13h7M23 18h7" stroke="currentColor" stroke-width="2"/>'};
+ return `<svg class="pixel-art" viewBox="0 0 36 36" aria-hidden="true">${shapes[kind]||shapes.stars}</svg>`;
+}
+function shirtMarkup(d){const longest=Math.max(...d.words.split('\n').map(s=>s.length)),size=Math.max(12,Math.min(d.layout==='bold'?19:17,Math.floor(115/(longest*.7))));return `<div class="shirt-wrap" style="--shirt-ink:${d.ink};--shirt-color:${d.shirt}"><svg class="shirt-outline" viewBox="0 0 235 245" aria-hidden="true"><path d="M65 12L94 0h47l29 12 63 43-28 50-34-21v158H64V84l-34 21L2 55z" fill="${d.shirt}"/><path d="M94 0q23 32 47 0" fill="#0002"/><path d="M66 90v151M170 90v151" stroke="#0001" stroke-width="3"/></svg><div class="shirt-print ${d.layout}" style="font-size:${size}px">${d.layout==='stack'?'':pixelArt(d.art)}<div class="ink-text">${esc(d.words)}</div>${d.layout==='stack'?pixelArt(d.art):''}</div></div>`;}
+function miniShirt(color){return `<span class="mini-shirt"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M11 3l7-2h5l7 2 9 9-6 8-4-4v23H11V16l-5 4-5-8z" fill="${color}"/></svg></span>`;}
+function designForListing(l){
+ const d=state.designs.find(x=>x.id===l.designId)||state.designs[0];const words={'Slow Mornings Club':'SLOW\nMORNINGS\nCLUB','Garden Daydreams':'GARDEN\nDAYDREAMS','Little Joys Club':'LITTLE JOYS\nCLUB','Cozy By Nature':'COZY\nBY NATURE','Weekend Wandering':'WEEKEND\nWANDERING'};
+ return {...d,words:words[l.title]||d.words};
+}
+function renderApprovals(){
+ const forecast=approvalForecast();$('page-approvals').innerHTML=intro('Badge’s approval desk · sample batch','Pick the keepers.','Ten sample concepts. Review each design and its selected shops; approval reserves a slot, while the weekly release controls whether it can leave the queue.')+`<section class="panel"><div class="panel-head"><h2>This week’s release</h2>${pill(state.weekly==='released'?'Released':state.weekly==='skipped'?'Week skipped':'Awaiting your approval',state.weekly==='released'?'good':'warn')}</div><div class="pad"><p>Sample week: Oct 12–18. Release applies only to designs you individually approve for this week. It does not approve future designs, unseen marketing assets or later weeks.</p><div class="flex"><button class="btn primary" data-week="released" ${state.weekly==='released'?'disabled':''}>Release approved work this week</button><button class="btn" data-week="skipped" ${state.weekly==='skipped'?'disabled':''}>Skip this week</button><button class="btn quiet" data-week="held" ${state.weekly==='held'?'disabled':''}>Hold / undo release</button></div><p class="motion-note">Skipping a week holds all pending posts, including carryover. A safety stop takes priority over every release.</p></div></section><div class="notice spaced">All evidence, scores and inspection outcomes are examples. These shirt mockups are concept previews, not generated print files. One design is held for additional inspection.</div><div class="design-grid">${state.designs.map((d,i)=>{
+  const t=TRENDS.find(t=>t.id===d.trend),jobs=d.state==='approved'?state.queue.filter(j=>j.designId===d.id):forecast[d.id]||[],published=state.listings.some(l=>l.id==='published-'+d.id),noShop=!Object.values(d.shops).some(Boolean);
+  return `<article class="design-card" id="card-${d.id}" tabindex="-1"><div class="card-top"><span>DESIGN ${String(i+1).padStart(2,'0')} · SAMPLE</span>${pill(d.state==='pending'?(d.inspectionHold?'Inspection hold':'Needs review'):d.state==='approved'?(published?'Published in sample':'Approved'):'Skipped',d.state==='approved'?'good':'warn')}</div><div class="shirt-stage" style="--stage:${d.stage}">${shirtMarkup(d)}</div><div class="card-details"><div class="title-score"><h3>${esc(d.title)}</h3><div class="score">${d.score}<small>/100</small></div></div><div class="trend-line">Trend · ${esc(t.name)} · sample score</div><p class="why"><strong>Why it’s trending:</strong> ${esc(t.why)}</p><dl class="metadata"><div><dt>Source · sample evidence</dt><dd>${esc(t.source)}</dd></div><div><dt>Evidence date</dt><dd>${dateLabel(t.at)}, 2026</dd></div><div><dt>Season</dt><dd>${esc(t.season)}</dd></div><div><dt>Target launch</dt><dd>${dateLabel(t.launch)}, 2026</dd></div></dl><div class="checks"><strong>Badge’s checks · sample outcomes</strong><ul><li>Original-art and near-duplicate screen</li><li>Transparent PNG / spelling / print-area check</li><li>AI-use disclosure prepared</li><li>Printify production-partner disclosure prepared</li><li class="hold">${d.inspectionHold?'HELD: similar phrase needs more evidence. Approval is blocked.':'Protected-topic screen passed in sample. This is not legal clearance.'}</li></ul></div><div class="shop-picks">${['Etsy','TikTok Shop'].map(shop=>`<label><input type="checkbox" data-shop-design="${d.id}" data-shop="${shop}" ${d.shops[shop]?'checked':''} ${d.state!=='pending'?'disabled':''}>${shop}</label>`).join('')}</div><div class="will-post"><strong>${d.state==='skipped'?'Will not post':d.inspectionHold?'Will post: inspection hold':published?'Published in sample only':'Will post: reserved pacing slot'}</strong>${d.state==='skipped'?'Skipped designs never enter the queue.':jobs.length?jobs.map(j=>`${esc(j.platform)} · ${fullSlot(j.at)}<br><small>${d.inspectionHold?'Requires a resolved inspection':queueHold(j)||'Ready after your approval'}</small>`).join('<br>'):'Select at least one shop to preview its slot.'}</div><div class="reason-label">Optional skip reason · teaches Pixel your taste</div><div class="skip-reasons">${['not funny','don’t like the look','off trend','too similar'].map((reason,n)=>`<button id="reason-${d.id}-${n}" data-reason-design="${d.id}" data-reason="${esc(reason)}" aria-pressed="${String(d.selectedReason===reason)}" ${d.state!=='pending'?'disabled':''}>${reason}</button>`).join('')}</div><div class="card-actions"><button class="btn primary" id="approve-${d.id}" data-decision="approve" data-design="${d.id}" ${d.state!=='pending'||d.inspectionHold||noShop?'disabled':''}>Approve</button><button class="btn" id="skip-${d.id}" data-decision="skip" data-design="${d.id}" ${d.state!=='pending'?'disabled':''}>Skip</button><button class="btn quiet" id="undo-${d.id}" data-decision="undo" data-design="${d.id}" ${d.state==='pending'||published?'disabled':''}>Undo</button></div><p class="card-note" aria-live="polite">${published?'Undo cannot withdraw a published listing. Manage publication separately in a later phase.':d.state==='skipped'?'Skipped'+(d.reason?' · '+esc(d.reason):'')+'. Undo returns this card to review.':d.state==='approved'?'Approved for selected shops. Undo removes its queued jobs.':'No product is published by this card in Phase 1.'}</p></div></article>`;
+ }).join('')}</div>`;bindLocal($('page-approvals'));
+}
+function renderTrends(){
+ const calendar=[['Thanksgiving','2026-11-26'],['Christmas','2026-12-25'],['Valentine’s Day','2027-02-14'],['Mother’s Day','2027-05-09'],['Graduation season','2027-05-15'],['Father’s Day','2027-06-20'],['Summer','2027-06-21'],['Back to school','2027-08-15'],['Halloween','2027-10-31']];
+ $('page-trends').innerHTML=intro('Radar’s board · sample research','Find the feeling. Make it original.','Dated evidence, a clear reason, and a launch window. Every trend and score below is illustrative, not a claim about current search activity.')+`<div class="trend-grid">${TRENDS.slice().sort((a,b)=>b.score-a.score).map(t=>`<article class="panel trend-card"><div class="title-score"><span class="sample-label">RISING THEME · SAMPLE</span><span class="score">${t.score}</span></div><h3>${esc(t.name)}</h3>${pill(t.signal)}<p class="why">${esc(t.why)}</p><p class="small"><strong>Source:</strong> ${esc(t.source)}<br><strong>Checked:</strong> ${dateLabel(t.at)}, 2026<br><strong>Palette:</strong> ${esc(t.palette)}<br><strong>Target launch:</strong> ${dateLabel(t.launch)}, 2026</p><button class="btn quiet" data-page="approvals">Review matching concepts</button></article>`).join('')}</div><section class="panel spaced"><div class="panel-head"><h2>Seasonal design calendar</h2><small>Design 6–8 weeks ahead</small></div><div class="calendar">${calendar.map(([name,day])=>`<article><h3>${name}</h3><div class="small muted">Occasion · ${dateLabel(day)}, ${day.slice(0,4)}</div><time>Design by ${dateLabel(addDays(day,-56))}–${dateLabel(addDays(day,-42))}</time><small class="muted">${['Graduation season','Summer','Back to school'].includes(name)?'Planning anchor; dates vary by school and region.':'Eight-week start → six-week deadline.'} Launch after owner approval.</small>${addDays(day,-42)<dayKey(SAMPLE_NOW)?'<p class="small danger-text">Sample deadline has passed; do not rush a late listing.</p>':''}</article>`).join('')}</div></section><div class="notice spaced"><strong>Radar’s filter:</strong> no brands, celebrities, movies/TV, sports teams, lyrics or copyrighted characters. Seasonal sports ideas stay generic. Uncertain phrases are held. Learn visual and keyword patterns; never copy a seller’s artwork, words, photos or videos.</div>`;bindLocal($('page-trends'));
+}
+function promoMarkup(){return `<h3>Buzz’s recommendation · sample</h3><p>Consider a 15% seasonal coupon for the approved holiday collection. No coupon or budget has been changed.</p><div class="flex"><button class="btn" data-promo="approved" ${state.suggestion!=='pending'?'disabled':''}>Approve recommendation</button><button class="btn quiet" data-promo="declined" ${state.suggestion!=='pending'?'disabled':''}>Decline</button></div><p class="small muted">Decision: ${esc(state.suggestion)}. Owner applies changes through Etsy’s supported controls.</p>`;}
+function renderPosting(){
+ const next=availableSlots('Etsy',8,state.queue,pacePreview),ready=state.queue.find(j=>!queueHold(j));
+ $('page-posting').innerHTML=intro('Clerk’s posting desk · sample schedule','Approved work. A sensible pace.','Slots are reserved with stable ±1-hour variation in America/New_York time. Overflow waits; a posting ceiling is never a quota.')+`<div class="rule-grid"><article class="panel rule-card"><h3>Etsy listings</h3><span class="number">1 / day → 2–3 / day</span><p>First 14 days: one listing a day. Day 15 onward: two or three, spread across waking hours. Sample shop opened Oct 12; day 15 is Oct 26.</p></article><article class="panel rule-card"><h3>Pinterest</h3><span class="number">5–10 / day max</span><p>Three distinct pins per approved design across seven days, plus fresh bestseller creative. Five slots are shown in this sample, with no duplicate filler.</p></article><article class="panel rule-card"><h3>Short videos</h3><span class="number">1 / platform / day</span><p>One each for TikTok, Instagram Reels and YouTube Shorts. TikTok uses owner posting or an approved partner. Every creative needs owner approval.</p></article></div><div class="notice spaced"><strong>7 AM–midnight Eastern only.</strong> Variations stay inside that window, with daylight saving time handled for each date. No browser posting bots. Etsy’s AI-use and Printify production-partner disclosures stay attached.</div><section class="panel"><div class="panel-head"><h2>Release + safety controls</h2>${pill(state.postingPaused?'Safety stop':state.weekly==='released'?'Week released':'Week held',state.postingPaused?'bad':state.weekly==='released'?'good':'warn')}</div><div class="pad"><p>Nothing publishes without individual design approval, the selected shop, the current week’s release, and a clear safety check. Skipping the week holds carryover too.</p><div class="flex"><button class="btn primary" data-page="approvals">Review approvals</button><button class="btn danger" data-warning>Simulate platform warning</button><button class="btn" data-resume ${!state.postingPaused?'disabled':''}>Resume sample posting</button></div><p class="motion-note">A warning pauses every platform and prepares an alert. Existing orders continue shipping. The Phase 1 preview sends no email and makes no API calls.</p></div></section><section class="panel spaced"><div class="panel-head"><h2>Next Etsy slots</h2><small>Sample forecast</small></div><div class="pad"><div class="flex">${[['current','Current schedule'],['new','First 14 days'],['established','Day 15 onward']].map(([value,label])=>`<button class="btn quiet" data-pace="${value}" aria-pressed="${pacePreview===value}">${label}</button>`).join('')}</div><p class="motion-note">Forecast controls do not change the shop’s actual age or existing reservations. The established forecast starts Oct 26 and alternates two / three slots per day.</p></div><div class="slots">${next.map(s=>`<div class="slot">${dateLabel(s.at)}<strong>${timeLabel(s.at)} ET</strong><small>${capFor(dayKey(s.at),'Etsy',pacePreview)} Etsy slot(s) that day<br>${queueHold(s)||'Open sample slot'}</small></div>`).join('')}</div></section><section class="panel spaced"><div class="panel-head"><h2>Pin + video slot examples</h2><small>Creative approval required</small></div><div class="slots">${['Pinterest','TikTok video','Instagram Reels','YouTube Shorts'].map(platform=>`<div class="slot"><b>${platform}</b><small>${platform==='Pinterest'?'Five slots/day shown':platform==='TikTok video'?'Owner / approved partner':'Official authorized API, later'}</small>${availableSlots(platform,2).map(s=>`<strong>${timeLabel(s.at)} ET</strong><small>${dateLabel(s.at)}</small>`).join('')}</div>`).join('')}</div></section><div class="columns spaced"><section class="panel"><div class="panel-head"><h2>Approved posting queue</h2><small>${state.queue.length} reserved jobs</small></div><ol class="queue-list">${queueMarkup()}</ol><div class="pad"><button class="btn" data-simulate-post ${!ready?'disabled':''}>Simulate next approved slot</button><p class="motion-note">Explicit local test only. Advances the selected sample slot; nothing is sent to Etsy or TikTok Shop. Held jobs cannot run.</p></div></section><section class="panel"><div class="panel-head"><h2>Recommendations + boundaries</h2></div><div class="pad">${promoMarkup()}<p class="subtle-line"><strong>Postie:</strong> drafts only; you send in Etsy.</p><p><strong>TikTok Shop:</strong> product integration through Printify is separate from TikTok video posting.</p><p><strong>Retries:</strong> uncertain publishing results wait for reconciliation; never blindly duplicate a listing or order.</p></div></section></div>`;bindLocal($('page-posting'));
+}
+function renderReport(){
+ const top=state.listings.slice().sort((a,b)=>b.sales-a.sales)[0],source=state.traffic.sources.slice().sort((a,b)=>b.visits-a.visits)[0];
+ const metrics=[['Sales revenue',money(state.orders.reduce((a,o)=>a+o.price,0))],['Est. shop profit',money(stats.profit)],['Orders',stats.orders],['Visits',number(stats.visits)],['Listing clicks','Unavailable'],['Order conversion',percent(stats.orders,stats.visits)]];
+ $('page-report').innerHTML=intro('Penny’s outbox · sample email','Your Monday, in one email.','An inbox-style preview addressed to info@visionmakestudio.com. No email is sent in Phase 1.')+`<article class="email-shell"><div class="inboxbar"><span>Inbox / Weekly shop report</span>${pill('Email preview · sample')}</div><header class="email-meta"><h2>VisionMakeStudio · your week in the shop</h2><p><strong>From:</strong> Penny · VisionMakeStudio report preview</p><p><strong>To:</strong> info@visionmakestudio.com</p><p><strong>Sample delivery:</strong> Monday, October 19, 2026 · 8 AM ET</p><p><strong>Sample reporting week:</strong> October 12–18, 2026</p></header><div class="email-body"><div class="mail-title">A little progress. A clearer picture.</div><p>Here’s the sample shop snapshot, including your preview decisions. These figures illustrate the finished report; they are not your Etsy results.</p><div class="email-stats">${metrics.map(([label,value])=>`<div><small>${label}</small><b>${value}</b></div>`).join('')}</div><h3>What moved</h3><div class="mail-line"><span>Top design · all-time sample sales</span><strong>${esc(top.title)} · ${top.sales} sales</strong></div><div class="mail-line"><span>Top trend · by sample design sales</span><strong>${esc(top.trend)}</strong></div><div class="mail-line"><span>Top traffic source</span><strong>${esc(source.name)} · ${source.visits} visits</strong></div><div class="mail-line"><span>Advertising spend</span><strong>${money(state.adSpend)}</strong></div><div class="mail-line"><span>Print + shipping costs</span><strong>${money(state.orders.reduce((a,o)=>a+o.printShip,0))}</strong></div><div class="mail-line"><span>Platform fees · sample breakdown</span><strong>${money(state.orders.reduce((a,o)=>a+o.fees,0))}</strong></div><div class="mail-line"><span>Refunds</span><strong>${money(state.refunds)}</strong></div><div class="mail-line"><span>Pins / videos · sample totals</span><strong>${stats.pins} pins / ${stats.videos} videos</strong></div><div class="mail-line"><span>Design approvals / awaiting review</span><strong>${stats.approved} / ${stats.toApprove}</strong></div><p class="small muted spaced">Shop profit = sample revenue − printing/shipping − recorded platform fees − advertising − refunds. Offsite Ads fees belong in the order fee breakdown when charged. Estimates remain estimates until all real charges settle. Conversion uses orders ÷ visits; unavailable listing clicks are not guessed.</p><h3>What the robots learned this week</h3>${['pixel','tagz','pinny'].map(id=>{const book=state.books[id],entry=book.history.find(v=>v.version===book.current);return `<div class="learning"><strong>${BY[id].name} · playbook v${book.current}</strong><p>${esc(entry.summary)}</p><small>${esc(entry.evidence)}</small><div class="flex spaced"><button class="btn quiet" data-book="${id}" data-version="${book.current}">Undo this playbook change</button><button class="btn quiet" data-view-robot="${id}">Open playbook history</button></div></div>`;}).join('')}<div class="learning"><strong>Badge · one inspection hold</strong><p>A similar phrase needs more evidence. It remains blocked from approval.</p></div><h3>What needs you</h3><p>${stats.toApprove} sample designs await review. ${state.weekly==='released'?'This week’s approved work is released.':state.weekly==='skipped'?'You skipped this week; pending posts are held.':'The weekly release is still held.'} ${state.postingPaused?'A safety stop is also active.':''}</p><button class="btn primary" data-page="approvals">Review this week’s designs</button><div class="mail-footer">First 4–8 weeks: gather evidence and learn your taste. Low data means “not enough data yet.” This is playbook refinement, not model retraining. All links above operate only inside this sample dashboard.</div></div></article>`;bindLocal($('page-report'));
+}
+function renderCurrent(){if(page==='approvals')renderApprovals();else if(page==='trends')renderTrends();else if(page==='posting')renderPosting();else if(page==='report')renderReport();}
+function refresh(){syncStats();save();renderHud();renderPane();renderCurrent();}
+function navigate(name){if(!['shop','approvals','trends','posting','report'].includes(name))return;page=name;document.querySelectorAll('[id^="page-"]').forEach(el=>el.hidden=el.id!=='page-'+page);document.querySelectorAll('.nav [data-page]').forEach(b=>{if(b.dataset.page===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});if(location.hash!=='#'+page)history.pushState(null,'','#'+page);renderCurrent();if(page==='shop')fit();window.scrollTo({top:0,behavior:'instant'});}
+function undoBook(id,version){const book=state.books[id],index=book.history.findIndex(v=>v.version===version);if(index<0)return;const target=book.history[Math.max(0,index-1)],next='1.'+(Math.max(...book.history.map(h=>Number(h.version.split('.')[1])))+1);book.history.push({version:next,at:'2026-10-14',summary:'Restored the rules from v'+target.version+' (Undo v'+version+').',rules:target.rules.slice(),evidence:'Owner Undo · sample decision'});book.current=next;recordEvent({id:uniqueId('undo-book'),type:'playbook.restored',robot:id,at:SAMPLE_NOW.toISOString(),text:'Owner restored '+BY[id].name+' rules from v'+target.version+'. History retained as v'+next+'.',data:{version:next}},{animate:false});toast(BY[id].name+' playbook restored · v'+next);}
+function uniqueId(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);}
+function decision(id,action){
+ const d=state.designs.find(x=>x.id===id);if(!d)return;
+ if(action==='approve'){
+  if(d.state!=='pending'||d.inspectionHold||!Object.values(d.shops).some(Boolean))return;
+  d.state='approved';const trend=TRENDS.find(t=>t.id===d.trend);
+  for(const [platform,on]of Object.entries(d.shops)){if(!on)continue;const slot=availableSlots(platform,1,state.queue,'current',trend.launch)[0];if(slot)state.queue.push({...slot,id:uniqueId('job'),designId:id,title:d.title});}
+ }else if(action==='skip'){if(d.state!=='pending')return;d.state='skipped';d.reason=d.selectedReason;state.queue=state.queue.filter(j=>j.designId!==id);}
+ else{if(d.state==='pending'||state.listings.some(l=>l.id==='published-'+id))return;d.state='pending';d.reason='';state.queue=state.queue.filter(j=>j.designId!==id);}
+ recordEvent({id:uniqueId('decision'),type:action==='approve'?'design.approved':action==='skip'?'design.skipped':'design.restored',robot:'badge',at:SAMPLE_NOW.toISOString(),text:action==='approve'?'Owner approved “'+d.title+'” for '+Object.keys(d.shops).filter(s=>d.shops[s]).join(' + ')+'. Posting still checks weekly release.':action==='skip'?'Owner skipped “'+d.title+'”'+(d.reason?' · '+d.reason:'')+'. It will not post.':'Owner undid the decision on “'+d.title+'”. Its queued jobs were removed.',data:{designId:id,reason:d.reason}});
+ const next=$((action==='undo'?'approve-':'undo-')+id);next?.focus({preventScroll:true});toast(action==='approve'?'Approved in sample · pacing slot reserved':action==='skip'?'Skipped · nothing queued':'Decision undone · back to review');
+}
+function setWeek(value){state.weekly=value;stopSequence();recordEvent({id:uniqueId('week'),type:'week.'+value,robot:'clerk',at:SAMPLE_NOW.toISOString(),text:value==='released'?'Owner released individually approved work for Oct 12–18. Future weeks still need approval.':value==='skipped'?'Owner skipped this week. All pending posting, including carryover, is held.':'Owner held the week / undid its release. Nothing pending can publish.',data:{week:WEEK}},{animate:false});toast(value==='released'?'This week released · approved designs only':'All pending work is held');}
+function pausePosting(warning=false){state.postingPaused=true;stopSequence();recordEvent({id:uniqueId('stop'),type:'posting.paused',robot:'badge',at:SAMPLE_NOW.toISOString(),text:warning?'Simulated platform warning: all posting paused; immediate alert email preview prepared. Existing orders continue.':'Owner paused all posting. Existing orders continue shipping. No email is sent in the preview.',data:{reason:warning?'Sample platform warning':'Owner safety stop'}},{animate:false});$('event-title').textContent='Safety stop · all posting held';$('event-caption').textContent='Every platform is paused. Existing orders still ship. This sample sends no email.';}
+function resumePosting(){state.postingPaused=false;recordEvent({id:uniqueId('resume'),type:'posting.resumed',robot:'badge',at:SAMPLE_NOW.toISOString(),text:'Owner resumed sample posting. Individual approvals and weekly release are still required.',data:{}},{animate:false});toast('Safety stop cleared · approval gates still apply');}
+function simulatePost(){const job=state.queue.find(j=>!queueHold(j));if(!job)return toast('No job has all required approvals.');const d=state.designs.find(x=>x.id===job.designId);if(!d||d.state!=='approved'||d.inspectionHold||!d.shops[job.platform])return toast('This job is held for review.');recordEvent({id:'publish-'+job.id,type:'listing.live',robot:'clerk',at:job.at,text:'Explicit sample-slot test: “'+d.title+'” is live in this preview on '+job.platform+'. No platform request was made.',data:{designId:d.id,platform:job.platform,jobId:job.id,listingId:'published-'+d.id,simulated:true}});toast('Publication simulated locally · no real listing created');}
+function bindLocal(root){
+ root.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+ root.querySelectorAll('[data-decision]').forEach(b=>b.onclick=()=>decision(b.dataset.design,b.dataset.decision));
+ root.querySelectorAll('[data-reason-design]').forEach(b=>b.onclick=()=>{const d=state.designs.find(d=>d.id===b.dataset.reasonDesign);d.selectedReason=d.selectedReason===b.dataset.reason?'':b.dataset.reason;save();const id=b.id;renderApprovals();$(id)?.focus({preventScroll:true});});
+ root.querySelectorAll('[data-shop-design]').forEach(input=>input.onchange=()=>{const d=state.designs.find(d=>d.id===input.dataset.shopDesign);d.shops[input.dataset.shop]=input.checked;save();renderApprovals();});
+ root.querySelectorAll('[data-week]').forEach(b=>b.onclick=()=>setWeek(b.dataset.week));
+ root.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>undoBook(b.dataset.book,b.dataset.version));
+ root.querySelectorAll('[data-view-robot]').forEach(b=>b.onclick=()=>selectRobot(b.dataset.viewRobot));
+ root.querySelectorAll('[data-pace]').forEach(b=>b.onclick=()=>{pacePreview=b.dataset.pace;renderPosting();});
+ root.querySelectorAll('[data-warning]').forEach(b=>b.onclick=()=>pausePosting(true));
+ root.querySelectorAll('[data-resume]').forEach(b=>b.onclick=resumePosting);
+ root.querySelectorAll('[data-simulate-post]').forEach(b=>b.onclick=simulatePost);
+ root.querySelectorAll('[data-promo]').forEach(b=>b.onclick=()=>{state.suggestion=b.dataset.promo;recordEvent({id:uniqueId('promo'),type:'promo.decision',robot:'buzz',at:SAMPLE_NOW.toISOString(),text:'Owner '+state.suggestion+' Buzz’s recommendation. No coupon, price or advertising setting was changed.',data:{decision:state.suggestion}},{animate:false});toast('Recommendation decision recorded · no settings changed');});
+}
+function applyEvent(e){
+ if(e.type==='order.paid'&&!state.orders.some(o=>o.id===e.data.orderId)){
+  state.orders.unshift({id:e.data.orderId,shirt:'Slow Mornings Club',color:'Sand',size:'M',price:24.99,fees:2.57,printShip:13.65,profit:8.77,estimate:true,status:'paid',source:'Pinterest',shipTo:'Portland, OR',designId:'D01',at:e.at,timeline:[{step:'paid',at:e.at}],tracking:null});
+  state.traffic.sources.find(s=>s.name==='Pinterest').orders++;const listing=state.listings.find(l=>l.id===e.data.listingId);if(listing)listing.sales++;
+ }
+ if(e.type==='order.shipped'){
+  const o=state.orders.find(o=>o.id===e.data.orderId);if(o){o.status='shipped';o.tracking='SAMPLE-'+o.id;for(const step of ['production','shipped'])if(!o.timeline.some(t=>t.step===step))o.timeline.push({step,at:e.at});}
+ }
+ if(e.type==='listing.live'&&e.data.simulated){
+  const d=state.designs.find(d=>d.id===e.data.designId);let listing=state.listings.find(l=>l.id===e.data.listingId);
+  if(!listing){listing={id:e.data.listingId,title:d.title,platforms:[],postedAt:e.at,views:0,visits:0,favorites:0,sales:0,trend:TRENDS.find(t=>t.id===d.trend).name,tags:['sample original tee'],pins:0,videos:0,designId:d.id,lesson:'Not enough data yet.'};state.listings.unshift(listing);}
+  if(!listing.platforms.includes(e.data.platform))listing.platforms.push(e.data.platform);const completed=state.queue.find(j=>j.id===e.data.jobId);if(completed)state.postedJobs.push(completed);state.queue=state.queue.filter(j=>j.id!==e.data.jobId);
+ }
+ if(e.type==='playbook.updated'){
+  const id=e.data.targetRobot,book=state.books[id],base=book.history.find(v=>v.version===book.current),version='1.'+(Math.max(...book.history.map(h=>Number(h.version.split('.')[1])))+1);
+  book.history.push({version,at:e.at,summary:e.data.summary,rules:[...base.rules,e.data.summary],evidence:'Sunday sample review; small sample, no winning design declared'});book.current=version;BY[id].lv++;BY[id].xp=.05;
+ }
+}
+const visualQueue=[];
+function recordEvent(event,{animate=true}={}){
+ if(processed.has(event.id))return false;
+ if(event.data?.simulated&&['listing.live','pin.posted','video.posted'].includes(event.type)&&state.postingPaused)return false;
+ if(!events.some(e=>e.id===event.id))events.push(event);applyEvent(event);processed.add(event.id);refresh();renderFeed();
+ if(animate){visualQueue.push(event.id);drainVisuals();}return true;
+}
+async function animateEvent(e,token){
+ const r=BY[e.robot];if(!r)return;currentEvent=e;r.busy=true;follow(r);syncStats();renderPane();$('event-title').textContent=r.name+' · '+e.type.replaceAll('.',' / ');$('event-caption').textContent=e.text;
+ const flag=e.data.historical?'Historical sample replay':'Sample event';
+ if(e.type==='trend.found'){await work(r,'TREND!',850,token);await handoff(r,BY.pixel,'card',token);}
+ else if(e.type==='design.made'){await work(r,'DRAWING',1050,token);await handoff(r,BY.badge,'sheet',token);}
+ else if(e.type==='design.needs_review'){await work(r,'CHECKING',900,token);r.bubble='NEEDS YOU';reward('REVIEW',r);}
+ else if(e.type==='design.approved'){await work(r,'STAMP',650,token);S.stamp=1;reward('APPROVED',r,'#4ade80');await delay(600,token);await handoff(r,BY.clerk,'stamped',token);}
+ else if(e.type==='design.skipped'){await work(r,'SKIPPED',750,token);reward('SKIPPED',r,'#fda4af');}
+ else if(e.type==='design.restored'){await work(r,'REVIEW',650,token);}
+ else if(e.type==='tags.updated'){await work(r,'TAGS',700,token);await handoff(r,BY.clerk,'card',token);}
+ else if(e.type==='listing.live'){await work(r,'TYPING',1150,token);r.carry='card';reward('LIVE',r,'#93c5fd');await delay(700,token);r.carry=null;}
+ else if(e.type==='pin.posted'){await work(r,'PINNING',1000,token);reward('+1 PIN',r,'#f9a8d4');}
+ else if(e.type==='video.drafted'||e.type==='video.posted'){await work(r,'FILMING',1200,token);reward(e.type==='video.drafted'?'DRAFT':'VIDEO',r,'#7dd3fc');}
+ else if(e.type==='promo.suggested'){await work(r,'IDEA',1100,token);reward('OWNER OK?',r);}
+ else if(e.type==='order.paid'){await work(r,'SALE!',850,token);S.drawer=1.3;reward('+$8.77',r);await delay(500,token);await handoff(r,BY.hauler,'card',token);}
+ else if(e.type==='order.shipped'){
+  await goTo(r,'print',304,180,token);activeRoom='print';follow(r);S.press=true;r.work=1;r.bubble='PRESS';await delay(1100,token);S.press=false;r.work=0;r.bubble=null;
+  await goTo(r,'print',440,202,token);r.bubble='PACKING';await delay(700,token);r.bubble=null;r.carry='box';
+  await goTo(r,'dock',400,285,token);activeRoom='dock';r.carry=null;S.vanState='leave';reward('SHIPPED',r,'#93c5fd');await delay(1500,token);await home(r,token);
+ }
+ else if(e.type==='reply.drafted'){await work(r,'WRITING',1100,token);reward('DRAFT ONLY',r,'#93c5fd');}
+ else if(e.type==='playbook.updated'){
+  for(const id of ['pixel','tagz','pinny']){await near(r,BY[id],token);activeRoom=BY[id].home;follow(r);r.work=1;r.bubble='REVIEW';await delay(550,token);r.bubble=null;r.work=0;if(id===e.data.targetRobot)reward('LEVEL UP',BY[id]);}
+  await home(r,token);
+ }
+ else await work(r,'RECORDED',600,token);
+ if(token===epoch){r.busy=false;r.work=0;r.bubble=null;r.carry=null;activeRoom=null;$('event-title').textContent=r.name+' · '+flag;$('event-caption').textContent=e.text;}
+}
+async function drainVisuals(){
+ if(animationBusy||!visualQueue.length)return;animationBusy=true;renderHud();const id=visualQueue.shift(),e=events.find(x=>x.id===id),token=epoch;
+ try{await animateEvent(e,token);}catch(error){if(token===epoch){toast('The sample animation was interrupted. Reset preview to start again.');console.error(error);}}
+ if(token!==epoch)return;animationBusy=false;currentEvent=null;refresh();
+ if(visualQueue.length)drainVisuals();else if(sequenceRunning)sequenceTimer=setTimeout(playNextDemo,reduce?300:1100);
+}
+function nextSample(){return events.find(e=>e.id.startsWith('sample_')&&!processed.has(e.id));}
+function playNextDemo(){
+ if(animationBusy)return;
+ const next=nextSample();if(!next){stopSequence();toast('Sample story complete. Reset to replay, or explore your approval controls.');return;}
+ const reviewSeen=processed.has('sample_03'),design=state.designs[0];
+ if(reviewSeen&&design.state==='pending'&&next.id==='sample_04'){stopSequence();$('event-title').textContent='Your turn · approve or skip';$('event-caption').textContent='Badge is waiting for your decision on the first card. The story never approves a design on a timer.';toast('Open Approvals and approve or skip the first card to continue.');return;}
+ recordEvent(next);
+}
+function stopSequence(){sequenceRunning=false;clearTimeout(sequenceTimer);renderHud();}
+function toggleSequence(){if(sequenceRunning)return stopSequence();sequenceRunning=true;if(S.paused){S.paused=false;$('btnPause').textContent='Pause motion';$('btnPause').setAttribute('aria-pressed','false');}renderHud();if(!animationBusy)playNextDemo();}
+function resetPreview(){
+ stopSequence();epoch++;for(const w of waits.splice(0))w.reject(new Error('Preview reset'));CREW.forEach((r,i)=>{if(r.reject)r.reject(new Error('Preview reset'));r.arrive=null;r.reject=null;r.x=r.hx;r.y=r.hy;r.room=r.home;r.path=[];r.busy=false;r.work=0;r.bubble=null;r.carry=null;r.lv=[3,4,2,3,3,2,2,1,3,2,1,2][i];r.xp=.25+(i*7%50)/100;});
+ state=freshState();events=state.events;processed=new Set(state.processed);visualQueue.length=0;FX.length=0;animationBusy=false;currentEvent=null;activeRoom=null;S.focus=null;S.cam='radar';S.overview=false;S.paused=false;S.press=false;S.vanX=380;S.vanState='parked';S.stamp=0;S.drawer=0;panelDetail=null;panelTab='crew';pacePreview='current';$('btnPause').textContent='Pause motion';$('btnPause').setAttribute('aria-pressed','false');$('event-title').textContent='Your crew is ready.';$('event-caption').textContent='Play a sample story to see the workflow. Approval always waits for your tap.';renderFeed(true);refresh();fit();toast('Sample shop reset · browser-local decisions cleared');
+}
+document.querySelectorAll('.nav [data-page],#page-shop [data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+document.querySelectorAll('[data-tab]').forEach((b,i,all)=>{b.onclick=()=>setTab(b.dataset.tab);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?all.length-1:(i+(e.key==='ArrowRight'?1:-1)+all.length)%all.length;setTab(all[n].dataset.tab);all[n].focus();};});
+$('btnAll').onclick=()=>{S.overview=true;S.focus=null;fit();};$('btnFollow').onclick=()=>{S.overview=false;S.focus=null;fit();};
+$('btnPause').onclick=()=>{S.paused=!S.paused;$('btnPause').textContent=S.paused?'Resume motion':'Pause motion';$('btnPause').setAttribute('aria-pressed',String(S.paused));if(S.paused)stopSequence();};
+$('btnNext').onclick=()=>{if(S.paused){toast('Resume motion before playing another sample event.');return;}playNextDemo();};$('btnStory').onclick=toggleSequence;$('btnReset').onclick=resetPreview;
+$('safety-button').onclick=()=>state.postingPaused?resumePosting():pausePosting();
+window.addEventListener('popstate',()=>{const name=location.hash.slice(1);if(['shop','approvals','trends','posting','report'].includes(name)){page=name;document.querySelectorAll('[id^="page-"]').forEach(el=>el.hidden=el.id!=='page-'+name);document.querySelectorAll('.nav [data-page]').forEach(b=>b.dataset.page===name?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));renderCurrent();if(page==='shop')fit();}});
+CREW.forEach((r,i)=>r.blinkSeed=i*.7);
+// Restore robot levels from the immutable sample training event, not elapsed time.
+if(processed.has('sample_12')){BY.pixel.lv++;BY.pixel.xp=.05;}
+initTargets();syncStats();renderFeed(true);renderHud();renderPane();S.cam='radar';fit();
+const initialHash=location.hash.slice(1);if(['approvals','trends','posting','report'].includes(initialHash))navigate(initialHash);
+requestAnimationFrame(t=>{last=t;frame(t);});
+if(document.fonts?.ready)document.fonts.ready.then(()=>{fit();renderPane();});
+// Read-only diagnostics for local QA. No credentials and no write/publish API.
+window.PrintShopPreview=Object.freeze({snapshot:()=>clone({stats,designs:state.designs,queue:state.queue,books:state.books,events,processed:[...processed],weekly:state.weekly,postingPaused:state.postingPaused,orders:state.orders,listings:state.listings,traffic:state.traffic,animationBusy,sequenceRunning,reducedMotion:reduce,robots:CREW.map(r=>({id:r.id,x:r.x,y:r.y,home:r.home,room:r.room,path:r.path,busy:r.busy})),page,panelTab,panelDetail}),routes:()=>Object.fromEntries(Object.keys(ROOMS).flatMap(from=>Object.keys(ROOMS).map(to=>[from+'>'+to,route(from,to,ROOMS[to].x+ROOMS[to].w/2,ROOMS[to].y+ROOMS[to].h/2)])))});
+})();
+
+</script>
+</body></html>
