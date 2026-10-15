@@ -1,0 +1,29 @@
+# Netlify project: vms-print. Keep production AND previews Private in Netlify.
+# Only dist/ is published: function source, packages and research are not static files.
+[build]
+  command = "node scripts/build.mjs"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Function response headers are set in the handlers, not by the static rules above.
+# No SPA catch-all: missing /api routes must return an error, never index.html.
+# No provider secrets belong here. Optional PINTEREST_ACCESS_TOKEN goes in
+# Netlify > vms-print > Environment variables > Functions / Production.
