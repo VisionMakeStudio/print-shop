@@ -1,4 +1,4 @@
-export const CLERK_POLICY_VERSION='clerk-1.4';
+export const CLERK_POLICY_VERSION='clerk-1.5';
 
 export const PRODUCT_TYPES=[
   {key:'tee',label:'T-shirt',price:2799,blueprint:[/garment-dyed t-shirt/i,/unisex.*t-shirt/i,/t-shirt/i],exclude:/youth|kids|infant|toddler|dress|v-neck|long sleeve/i,sizes:['S','M','L','XL','2XL','3XL'],colors:['White','Black','Navy','Dark Heather','Sand','Natural']},

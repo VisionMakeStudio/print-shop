@@ -1,13 +1,13 @@
 import {createHash} from 'node:crypto';
 
-export const PIXEL_POLICY_VERSION='pixel-1.0';
+export const PIXEL_POLICY_VERSION='pixel-1.1';
 export const WEEKLY_GENERATION_LIMIT=10;
 export const SKIP_REASONS=['not funny','don’t like the look','off trend','too similar'];
 
 const styles=[
-  'bold two-color linocut illustration with chunky hand-cut shapes and strong negative space',
-  'playful retro screen-print illustration with imperfect ink texture and a clear central silhouette',
-  'clean geometric folk-art illustration with three flat ink colors and balanced symmetry'
+  'bold two-color vector-style illustration with clean geometric shapes and strong negative space',
+  'playful retro screen-print vector-style illustration with smooth solid ink shapes and a clear central silhouette',
+  'clean geometric folk-art vector-style illustration with three flat ink colors and balanced symmetry'
 ];
 
 export function plain(value,max=160){return String(value??'').replace(/[\u0000-\u001f\u007f]/g,' ').replace(/\s+/g,' ').trim().slice(0,max);}
@@ -44,7 +44,7 @@ export function validateDecision(input){
 
 export function buildPrompt(brief,variant=0){
   const subject=plain(brief.topic||brief.name,100),direction=plain(brief.direction,240),style=styles[variant%styles.length];
-  return `Create one apparel graphic about the general subject "${subject}". Direction: ${direction}. Use a ${style}. Center one cohesive design in a tall portrait composition. Use crisp, separated shapes, limited flat spot colors, strong contrast, and generous transparent space around the art. Make it readable when printed at chest size. Create the artwork for this shop and do not copy or closely imitate another design. No T-shirt, person, model, product mockup, background, border rectangle, words, letters, numbers, signature, watermark, logo, brand, celebrity, copyrighted character, movie, television reference, sports team, or recognizable existing artwork. Output only the isolated artwork on a fully transparent background.`;
+  return `Create one production-quality apparel graphic about the general subject "${subject}". Direction: ${direction}. Use a ${style}. Center one cohesive design in a tall portrait composition. Use crisp closed shapes, smooth clean contours, limited flat spot colors, strong contrast, and generous transparent space around the art. Every colored shape must be fully opaque with clean antialiased edges. Keep the area outside the artwork fully transparent. No blurry edges, white or colored halos, background leakage, stray pixels, speckles, distressed texture, fuzzy details, glow, shadow, gradients, partially erased areas, or semi-transparent color inside the design. Keep small details thick enough to print cleanly and make the design readable at chest size. Create the artwork for this shop and do not copy or closely imitate another design. No T-shirt, person, model, product mockup, background, border rectangle, words, letters, numbers, signature, watermark, logo, brand, celebrity, copyrighted character, movie, television reference, sports team, or recognizable existing artwork. Output only the isolated vector-style artwork as a transparent PNG.`;
 }
 
 export function isPng(bytes){

@@ -4,14 +4,21 @@ import {decideInspection,normalizeModelReview,pngInfo} from '../netlify/lib/badg
 import {buildBadgeEmail} from '../netlify/lib/badge/email.mjs';
 import {createBadgeService} from '../netlify/lib/badge/service.mjs';
 
-const safeReview=()=>normalizeModelReview({summary:'An original autumn turkey framed by leaves and pumpkins.',visible_text:[],brand_or_logo:'none',recognizable_person:'none',character_or_franchise:'none',sports_or_entertainment:'none',lyric_or_slogan_risk:'none',protected_reference_notes:[],originality_risk:'low',policy_risk:'none',print_readiness:'pass',print_notes:['Centered with clear transparent margins.'],composition_notes:['Limited autumn palette.'],confidence:'high'});
+const safeReview=()=>normalizeModelReview({summary:'A clean autumn turkey framed by leaves and pumpkins.',visible_text:[],brand_or_logo:'none',recognizable_person:'none',character_or_franchise:'none',sports_or_entertainment:'none',lyric_or_slogan_risk:'none',protected_reference_notes:[],originality_risk:'low',policy_risk:'none',print_readiness:'pass',print_notes:['Centered with clear transparent margins.'],edge_quality:'pass',edge_notes:['Contours are crisp and the exterior is cleanly transparent.'],composition_notes:['Limited autumn palette.'],confidence:'high'});
 const png=()=>{const b=Buffer.alloc(32);Buffer.from([137,80,78,71,13,10,26,10]).copy(b);b.writeUInt32BE(1024,16);b.writeUInt32BE(1536,20);return b;};
 
-test('Badge passes a generic original image and holds likely protected references',()=>{
+test('Badge passes a clean generic image and holds likely protected references',()=>{
   const image=pngInfo(png()),pass=decideInspection({modelReview:safeReview(),image});
   assert.equal(pass.status,'pass');assert.equal(image.width,1024);assert.equal(image.height,1536);
   const risky={...safeReview(),brandOrLogo:'likely'};
   assert.equal(decideInspection({modelReview:risky,image}).status,'hold');
+});
+
+test('edge leakage blocks the design before final approval',()=>{
+  const review={...safeReview(),edgeQuality:'fail',edgeNotes:['White halo and stray pixels around the lower contour.']};
+  const result=decideInspection({modelReview:review,image:pngInfo(png())});
+  assert.equal(result.status,'hold');
+  assert.match(result.holdReasons.join(' '),/clean-edge screen/);
 });
 
 test('visible wording and uncertain references require closer review',()=>{
@@ -39,7 +46,7 @@ test('live service stores one inspection, sends one email and records final appr
   const records=new Map(),store={scope:'test',get:async key=>records.get(key)||null,put:async(key,value,onlyIfNew=false)=>{if(onlyIfNew&&records.has(key))return {modified:false};records.set(key,structuredClone(value));return {modified:true};},list:async(prefix,limit=100)=>[...records.keys()].filter(key=>key.startsWith(prefix)).sort().slice(0,limit)};
   const draft={id:'22222222-2222-4222-8222-222222222222',decisionAt:'2026-10-14T23:00:00.000Z',state:'approved',shops:{Etsy:true,'TikTok Shop':false},variant:0,brief:{name:'Thanksgiving original collection',topic:'Thanksgiving',direction:'Original harvest motifs',kind:'seasonal',score:83}};
   const pixelService={snapshot:async()=>({drafts:[draft]}),art:async()=>({bytes:png(),job:{id:draft.id}})};
-  const client={responses:{create:async()=>({output_text:JSON.stringify({summary:'Original autumn turkey.',visible_text:[],brand_or_logo:'none',recognizable_person:'none',character_or_franchise:'none',sports_or_entertainment:'none',lyric_or_slogan_risk:'none',protected_reference_notes:[],originality_risk:'low',policy_risk:'none',print_readiness:'pass',print_notes:[],composition_notes:[],confidence:'high'})})}};
+  const client={responses:{create:async()=>({output_text:JSON.stringify({summary:'Clean autumn turkey.',visible_text:[],brand_or_logo:'none',recognizable_person:'none',character_or_franchise:'none',sports_or_entertainment:'none',lyric_or_slogan_risk:'none',protected_reference_notes:[],originality_risk:'low',policy_risk:'none',print_readiness:'pass',print_notes:[],edge_quality:'pass',edge_notes:[],composition_notes:[],confidence:'high'})})}};
   let sent=0;const mailer={configured:()=>true,send:async()=>{sent++;return {status:'sent',id:'email-1',at:'2026-10-14T23:01:00.000Z'};}};
   const times=['2026-10-14T23:00:10.000Z','2026-10-14T23:00:20.000Z','2026-10-14T23:00:30.000Z','2026-10-14T23:00:40.000Z'];let n=0;
   const service=createBadgeService({store,pixelService,reviewClient:()=>client,mailer,env:key=>key==='OPENAI_API_KEY'?'set':undefined,clock:()=>new Date(times[Math.min(n++,times.length-1)])});

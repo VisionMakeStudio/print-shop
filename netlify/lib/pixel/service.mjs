@@ -27,7 +27,7 @@ export function createPixelService({store,radarService,imageClient,env=()=>undef
     return {
       phase:3,scope:store.scope||'local-test',asOf:now.toISOString(),policyVersion:PIXEL_POLICY_VERSION,
       configured:Boolean(env('OPENAI_API_KEY')),model:plain(env('PIXEL_IMAGE_MODEL')||'gpt-image-2.5-flare',80),
-      size:'1024x1536',quality:'low',drafts,jobs:data.jobs.filter(job=>job.status!=='ready').slice(0,20),
+      size:'1024x1536',quality:'high',drafts,jobs:data.jobs.filter(job=>job.status!=='ready').slice(0,20),
       shortlist:radar.shortlist||[],events:data.events.slice(-60),skipReasons:SKIP_REASONS,
       weekly:{starts:week,limit:WEEKLY_GENERATION_LIMIT,used:claims.length,remaining:Math.max(0,WEEKLY_GENERATION_LIMIT-claims.length)},
       boundaries:{publishing:false,products:false,badgeInspection:false,printReady:false}
@@ -52,7 +52,7 @@ export function createPixelService({store,radarService,imageClient,env=()=>undef
     const data=await load(),sameBrief=data.jobs.filter(job=>job.briefId===briefId).length;
     if(sameBrief>=3){await store.put(requestKey,{state:'rejected',at:clock().toISOString()});throw new Error('Pixel already made three variations for this brief. Review those before making more.');}
     const now=clock(),jobId=randomUUID(),budget=await claimWeeklySlot(jobId,requestId,now);
-    const job={id:jobId,requestId,briefId,brief,variant:sameBrief,status:'queued',createdAt:now.toISOString(),budget,model:plain(env('PIXEL_IMAGE_MODEL')||'gpt-image-2.5-flare',80),size:'1024x1536',quality:'low',outputFormat:'png',background:'transparent'};
+    const job={id:jobId,requestId,briefId,brief,variant:sameBrief,status:'queued',createdAt:now.toISOString(),budget,model:plain(env('PIXEL_IMAGE_MODEL')||'gpt-image-2.5-flare',80),size:'1024x1536',quality:'high',outputFormat:'png',background:'transparent'};
     await store.put(orderedKey('jobs',job.createdAt,job.id),job,true);
     await store.put(requestKey,{state:'created',jobId,at:job.createdAt});
     await saveEvent({id:`pixel-queued-${job.id}`,type:'design.queued',robot:'pixel',at:job.createdAt,text:`Owner asked Pixel for one “${brief.name}” draft. One weekly generation slot is reserved; nothing will publish.`,data:{scope:'pixel-live',jobId:job.id,briefId}});

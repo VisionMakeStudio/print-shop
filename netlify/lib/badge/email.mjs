@@ -11,6 +11,7 @@ export function buildBadgeEmail({inspection,draft,siteUrl}){
     ['Artwork file','Transparent PNG stored privately'],
     ['Protected-topic screen',inspection.status==='pass'?'No obvious protected reference detected':issues[0]||'Additional review required'],
     ['Visible wording',inspection.modelReview?.visibleText?.length?inspection.modelReview.visibleText.join(' · '):'No visible wording detected'],
+    ['Edge cleanup',inspection.modelReview?.edgeQuality==='pass'?'Crisp contours and clean transparency passed':inspection.modelReview?.edgeQuality==='fail'?'Blocked for blur, halos or background leakage':'Needs a closer edge review'],
     ['Disclosure','Etsy AI-use and Printify production-partner notes prepared'],
     ['Publishing','Blocked until your final approval and later Clerk checks']
   ];

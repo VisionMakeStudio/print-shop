@@ -36,6 +36,13 @@ test('plan validation requires owner-selected products and sensible prices',()=>
   assert.throws(()=>validatePlan({requestId,draftId,products:[{key:'tee',enabled:true,price:10}]},catalog),/higher than/);
 });
 
+test('Clerk blocks product creation until the high-quality edge gate passes',async()=>{
+  const records=new Map([['catalog/current.json',{shop:{id:7,title:'Shop'},products:catalog.products}]]),store={scope:'production',get:async key=>records.get(key)||null,put:async(key,value,onlyIfNew=false)=>{if(onlyIfNew&&records.has(key))return {modified:false};records.set(key,structuredClone(value));return {modified:true};},list:async(prefix,limit=100)=>[...records.keys()].filter(key=>key.startsWith(prefix)).sort().slice(0,limit)};
+  const draft={id:'22222222-2222-4222-8222-222222222222',quality:'low',brief:{name:'Thanksgiving collection',score:83,season:'Thanksgiving'}},card={draft,inspection:{modelReview:{edgeQuality:'not-checked'}},finalState:'approved',shops:{Etsy:true}};
+  const service=createClerkService({store,badgeService:{snapshot:async()=>({cards:[card]})},pixelService:{},clientFactory:()=>({}),env:()=> 'set'});
+  await assert.rejects(()=>service.makePlan({requestId:'11111111-1111-4111-8111-111111111111',draftId:draft.id,products:[{key:'tee',enabled:true,price:27.99}]}),/clean-edge gate/);
+});
+
 test('Printify payload is private and contains no publish instruction',()=>{
   const product={...catalog.products[0],price:2799,variants:[{id:1,title:'Black / M',cost:900,placeholders:[{position:'front',decorationMethod:'dtf'}]},{id:2,title:'Black / L',cost:1100,placeholders:[{position:'front',decorationMethod:'dtf'}]}]},payload=productPayload({draft:{brief:{name:'Thanksgiving · original collection · variation 3'}},product,imageId:'image-123'});
   assert.equal(payload.title,'Draft Thanksgiving collection variation 3 T-shirt');assert.equal(payload.description.includes('Original'),false);assert.equal(Object.hasOwn(payload,'visible'),false);assert.equal(payload.print_areas[0].placeholders[0].position,'front');assert.equal(payload.print_areas[0].placeholders[0].decoration_method,'dtf');assert.deepEqual(payload.print_areas[0].variant_ids,[1,2]);assert.equal(payload.variants.every(v=>v.price===2799),true);assert.equal(Object.hasOwn(payload,'publish'),false);
