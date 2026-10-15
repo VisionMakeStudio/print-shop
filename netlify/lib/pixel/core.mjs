@@ -44,7 +44,7 @@ export function validateDecision(input){
 
 export function buildPrompt(brief,variant=0){
   const subject=plain(brief.topic||brief.name,100),direction=plain(brief.direction,240),style=styles[variant%styles.length];
-  return `Create one original apparel graphic about the general subject "${subject}". Direction: ${direction}. Use a ${style}. Center one cohesive design in a tall portrait composition. Use crisp, separated shapes, limited flat spot colors, strong contrast, and generous transparent space around the art. Make it readable when printed at chest size. No T-shirt, person, model, product mockup, background, border rectangle, words, letters, numbers, signature, watermark, logo, brand, celebrity, copyrighted character, movie, television reference, sports team, or recognizable existing artwork. Output only the isolated artwork on a fully transparent background.`;
+  return `Create one apparel graphic about the general subject "${subject}". Direction: ${direction}. Use a ${style}. Center one cohesive design in a tall portrait composition. Use crisp, separated shapes, limited flat spot colors, strong contrast, and generous transparent space around the art. Make it readable when printed at chest size. Create the artwork for this shop and do not copy or closely imitate another design. No T-shirt, person, model, product mockup, background, border rectangle, words, letters, numbers, signature, watermark, logo, brand, celebrity, copyrighted character, movie, television reference, sports team, or recognizable existing artwork. Output only the isolated artwork on a fully transparent background.`;
 }
 
 export function isPng(bytes){

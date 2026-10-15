@@ -1,5 +1,5 @@
 import {randomUUID} from 'node:crypto';
-import {CLERK_POLICY_VERSION,PRODUCT_TYPES,chooseBlueprints,chooseProvider,hydrateProduct,listFrom,money,plain,productPayload,summarizeProvider,validatePlan} from './core.mjs';
+import {CLERK_POLICY_VERSION,PRODUCT_TYPES,chooseBlueprints,chooseProvider,hydrateProduct,listFrom,money,plain,productCopy,productPayload,summarizeProvider,validatePlan} from './core.mjs';
 
 const reversed=at=>String(9999999999999-Date.parse(at)).padStart(13,'0');
 const orderedKey=(prefix,at,id)=>`${prefix}/${reversed(at)}-${id}.json`;
@@ -36,6 +36,17 @@ export function createClerkService({store,badgeService,pixelService,clientFactor
     if(store.scope!=='production')throw new Error('Private Printify drafts can only be created from the production dashboard.');const planId=plain(input?.planId,100);if(!/^[a-f0-9-]{16,100}$/.test(planId))throw new Error('Choose an approved product plan.');const data=await load(),plan=data.plans.find(item=>item.id===planId);if(!plan)throw new Error('That Clerk plan was not found.');const prior=data.jobs.find(item=>item.planId===planId);if(prior&&prior.status!=='failed')return {job:prior,snapshot:await snapshot()};if(prior?.products?.length)throw new Error('A partial Printify response needs a manual check before retrying.');
     const createdAt=clock().toISOString(),job={id:randomUUID(),planId,draftId:plan.draftId,status:'queued',createdAt,products:[],retryOf:prior?.id||null,uploadId:prior?.uploadId||null};await store.put(orderedKey('jobs',createdAt,job.id),job,true);await event({id:`clerk-queued-${job.id}`,type:'products.queued',robot:'clerk',at:createdAt,text:`Clerk queued ${plan.products.length} private Printify draft${plan.products.length===1?'':'s'}${prior?' as a safe retry':''}. Publishing remains disabled.`,data:{scope:'clerk-live',jobId:job.id,planId,retryOf:prior?.id||null}});return {job,snapshot:await snapshot()};
   }
+  async function renameProducts(input){
+    if(store.scope!=='production')throw new Error('Private Printify drafts can only be updated from the production dashboard.');
+    const jobId=plain(input?.jobId,100);if(!/^[a-f0-9-]{16,100}$/.test(jobId))throw new Error('Choose a prepared private draft set.');
+    const data=await load(),job=data.jobs.find(item=>item.id===jobId),plan=data.plans.find(item=>item.id===job?.planId);
+    if(!job||job.status!=='ready'||!job.products?.length||!plan)throw new Error('Prepared private drafts were not found.');
+    const client=clientFactory(),products=[];
+    for(const item of job.products){const copy=productCopy({brief:{name:plan.designName}},item.key);await client.updateProduct(plan.shop.id,item.id,{title:copy.title,description:copy.description});products.push({...item,title:copy.title});}
+    const renamedAt=clock().toISOString(),updated={...job,products,renamedAt};await store.put(orderedKey('jobs',job.createdAt,job.id),updated);
+    await event({id:`clerk-renamed-${job.id}-${randomUUID()}`,type:'products.renamed',robot:'clerk',at:renamedAt,text:`Clerk updated ${products.length} private Printify draft name${products.length===1?'':'s'} to match the owner’s wording preference. Nothing was published.`,data:{scope:'clerk-live',jobId:job.id,count:products.length}});
+    return snapshot();
+  }
   async function run(input){
     const jobId=plain(input?.jobId,100);if(!/^[a-f0-9-]{16,100}$/.test(jobId)||store.scope!=='production')return;const lock=await store.put(`locks/${jobId}.json`,{at:clock().toISOString()},true);if(!lock.modified)return;let data=await load(),job=data.jobs.find(item=>item.id===jobId);if(!job||job.status!=='queued')return;const plan=data.plans.find(item=>item.id===job.planId);if(!plan)return;
     const key=orderedKey('jobs',job.createdAt,job.id),startedAt=clock().toISOString();job={...job,status:'running',startedAt};await store.put(key,job);
@@ -47,5 +58,5 @@ export function createClerkService({store,badgeService,pixelService,clientFactor
       const finishedAt=clock().toISOString();job={...job,status:'ready',finishedAt,uploadId,products:created};await store.put(key,job);await event({id:`clerk-ready-${job.id}`,type:'products.prepared',robot:'clerk',at:finishedAt,text:`Clerk prepared ${created.length} private Printify draft${created.length===1?'':'s'} for “${plan.designName}”. Review mockups, variants and shipping in Printify; nothing is live.`,data:{scope:'clerk-live',jobId:job.id,planId:plan.id,count:created.length}});
     }catch(error){const finishedAt=clock().toISOString(),errorDetail=plain(error?.detail||error?.message||'',700);job={...job,status:'failed',finishedAt,errorCode:plain(error?.status||'draft-failed',60),errorDetail,failureStage:plain(stage,60),needsManualCheck:job.products.length>0};await store.put(key,job);await event({id:`clerk-failed-${job.id}`,type:'products.failed',robot:'clerk',at:finishedAt,text:job.products.length?'Clerk stopped after a partial Printify response. Check My Products before trying anything else; automatic retry is blocked to prevent duplicates.':'Clerk could not prepare the private Printify drafts. Nothing was published; a safe retry is available.',data:{scope:'clerk-live',jobId:job.id,count:job.products.length,stage:job.failureStage,code:job.errorCode,detail:errorDetail}});console.error('Clerk draft preparation failed:',error?.name||'Error',error?.status||'',errorDetail,stage);}
   }
-  return {snapshot,refreshCatalog,makePlan,start,run};
+  return {snapshot,refreshCatalog,makePlan,start,renameProducts,run};
 }

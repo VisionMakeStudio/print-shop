@@ -83,7 +83,7 @@ export function createPixelService({store,radarService,imageClient,env=()=>undef
       await store.putBinary(artKey,bytes,{onlyIfNew:true,metadata:{contentType:'image/png',draftId:job.id,briefId:job.briefId}});
       const finishedAt=clock().toISOString();
       await replaceJob({...job,status:'ready',startedAt,finishedAt,artKey,bytes:bytes.length,prompt,providerCreatedAt:result.created||null});
-      await saveEvent({id:`pixel-ready-${job.id}`,type:'design.made',robot:'pixel',at:finishedAt,text:`Pixel finished one original “${job.brief.name}” artwork draft and carried it to the review desk. Badge inspection and owner approval are still required.`,data:{scope:'pixel-live',draftId:job.id,briefId:job.briefId}});
+      await saveEvent({id:`pixel-ready-${job.id}`,type:'design.made',robot:'pixel',at:finishedAt,text:`Pixel finished one “${job.brief.name}” artwork draft and carried it to the review desk. Badge inspection and owner approval are still required.`,data:{scope:'pixel-live',draftId:job.id,briefId:job.briefId}});
     }catch(error){
       const finishedAt=clock().toISOString(),code=error?.status===401?'key-rejected':error?.status===429?'rate-limited':String(error?.code||'generation-failed').slice(0,40);
       await replaceJob({...job,status:'failed',startedAt,finishedAt,errorCode:code});

@@ -27,6 +27,14 @@ test('approval email is branded, escaped and never performs approval',()=>{
   assert.match(mail.html,/VISIONMAKESTUDIO/);assert.match(mail.html,/cid:design-art/);assert.match(mail.html,/Autumn &lt;Gathering&gt;/);assert.doesNotMatch(mail.dashboard,/approve/i);assert.match(mail.text,/does not approve or publish/);
 });
 
+test('approval email applies the preferred wording to saved briefs',()=>{
+  const inspection={id:'11111111-1111-4111-8111-111111111111',status:'pass',holdReasons:[],reviewReasons:[],modelReview:safeReview()};
+  const draft={id:'22222222-2222-4222-8222-222222222222',brief:{name:'Thanksgiving original collection',kind:'seasonal'}};
+  const mail=buildBadgeEmail({inspection,draft,siteUrl:'https://vms-print.netlify.app'});
+  assert.match(mail.subject,/Thanksgiving collection/);
+  assert.doesNotMatch(`${mail.subject} ${mail.html} ${mail.text}`,/\boriginal\b/i);
+});
+
 test('live service stores one inspection, sends one email and records final approval',async()=>{
   const records=new Map(),store={scope:'test',get:async key=>records.get(key)||null,put:async(key,value,onlyIfNew=false)=>{if(onlyIfNew&&records.has(key))return {modified:false};records.set(key,structuredClone(value));return {modified:true};},list:async(prefix,limit=100)=>[...records.keys()].filter(key=>key.startsWith(prefix)).sort().slice(0,limit)};
   const draft={id:'22222222-2222-4222-8222-222222222222',decisionAt:'2026-10-14T23:00:00.000Z',state:'approved',shops:{Etsy:true,'TikTok Shop':false},variant:0,brief:{name:'Thanksgiving original collection',topic:'Thanksgiving',direction:'Original harvest motifs',kind:'seasonal',score:83}};

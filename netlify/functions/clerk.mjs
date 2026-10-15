@@ -18,4 +18,4 @@ const factory=context=>{
   return createClerkService({store:openClerkStore(context),badgeService,pixelService,clientFactory:()=>createPrintifyClient({token:env('PRINTIFY_API_TOKEN')}),env});
 };
 export default createClerkHandler(factory);
-export const config={path:['/api/clerk','/api/clerk/catalog','/api/clerk/plans','/api/clerk/jobs']};
+export const config={path:['/api/clerk','/api/clerk/catalog','/api/clerk/plans','/api/clerk/jobs','/api/clerk/rename']};

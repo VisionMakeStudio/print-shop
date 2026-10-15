@@ -21,6 +21,7 @@ export function createPrintifyClient({token,fetchImpl=fetch}){
   return {
     shops:()=>request('/shops.json'),blueprints:()=>request('/catalog/blueprints.json'),providers:id=>request(`/catalog/blueprints/${id}/print_providers.json`),variants:(blueprint,provider)=>request(`/catalog/blueprints/${blueprint}/print_providers/${provider}/variants.json?show-out-of-stock=0`),
     upload:({fileName,contents})=>request('/uploads/images.json',{method:'POST',body:{file_name:fileName,contents}}),
-    createProduct:(shopId,payload)=>request(`/shops/${shopId}/products.json`,{method:'POST',body:payload})
+    createProduct:(shopId,payload)=>request(`/shops/${shopId}/products.json`,{method:'POST',body:payload}),
+    updateProduct:(shopId,productId,payload)=>request(`/shops/${shopId}/products/${productId}.json`,{method:'PUT',body:payload})
   };
 }
