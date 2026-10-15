@@ -29,3 +29,5 @@
 # Netlify > vms-print > Environment variables > Functions / Production.
 # Phase 4 approval email uses RESEND_API_KEY, ALERT_EMAIL,
 # RESEND_FROM_EMAIL and optional DASHBOARD_URL from that same private scope.
+# Phase 5 Clerk uses PRINTIFY_API_TOKEN in Functions. The token stays server-side;
+# Clerk creates private drafts only and exposes no Printify publish route.
