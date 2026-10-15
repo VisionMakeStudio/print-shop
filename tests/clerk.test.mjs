@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {chooseBlueprints,hydrateProduct,listFrom,productPayload,summarizeProvider,validatePlan} from '../netlify/lib/clerk/core.mjs';
+import {chooseBlueprints,hydrateProduct,listFrom,printifyTitle,productPayload,summarizeProvider,validatePlan} from '../netlify/lib/clerk/core.mjs';
 import {createClerkHandler} from '../netlify/lib/clerk/http.mjs';
 import {createPrintifyClient} from '../netlify/lib/clerk/printify.mjs';
 
@@ -36,8 +36,13 @@ test('plan validation requires owner-selected products and sensible prices',()=>
 });
 
 test('Printify payload is private and contains no publish instruction',()=>{
-  const product={...catalog.products[0],price:2799,variants:[{id:1,title:'Black / M',cost:900,placeholders:[{position:'front',decorationMethod:'dtf'}]},{id:2,title:'Black / L',cost:1100,placeholders:[{position:'front',decorationMethod:'dtf'}]}]},payload=productPayload({draft:{brief:{name:'Original Autumn Gathering'}},product,imageId:'image-123'});
-  assert.equal(Object.hasOwn(payload,'visible'),false);assert.equal(payload.print_areas[0].placeholders[0].position,'front');assert.equal(payload.print_areas[0].placeholders[0].decoration_method,'dtf');assert.deepEqual(payload.print_areas[0].variant_ids,[1,2]);assert.equal(payload.variants.every(v=>v.price===2799),true);assert.equal(Object.hasOwn(payload,'publish'),false);
+  const product={...catalog.products[0],price:2799,variants:[{id:1,title:'Black / M',cost:900,placeholders:[{position:'front',decorationMethod:'dtf'}]},{id:2,title:'Black / L',cost:1100,placeholders:[{position:'front',decorationMethod:'dtf'}]}]},payload=productPayload({draft:{brief:{name:'Thanksgiving · original collection · variation 3'}},product,imageId:'image-123'});
+  assert.equal(payload.title,'Draft Thanksgiving original collection variation 3 T-shirt');assert.equal(Object.hasOwn(payload,'visible'),false);assert.equal(payload.print_areas[0].placeholders[0].position,'front');assert.equal(payload.print_areas[0].placeholders[0].decoration_method,'dtf');assert.deepEqual(payload.print_areas[0].variant_ids,[1,2]);assert.equal(payload.variants.every(v=>v.price===2799),true);assert.equal(Object.hasOwn(payload,'publish'),false);
+});
+
+test('Printify titles strip unsupported symbols and accents',()=>{
+  assert.equal(printifyTitle('[DRAFT] Café ☕ · Father’s Day — T-shirt'),'DRAFT Cafe Father s Day T-shirt');
+  assert.match(printifyTitle('Safe title 123'),/^[a-zA-Z0-9 -]+$/);
 });
 
 test('Printify errors retain a safe validation detail',async()=>{

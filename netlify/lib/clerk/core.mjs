@@ -1,4 +1,4 @@
-export const CLERK_POLICY_VERSION='clerk-1.2';
+export const CLERK_POLICY_VERSION='clerk-1.3';
 
 export const PRODUCT_TYPES=[
   {key:'tee',label:'T-shirt',price:2799,blueprint:[/garment-dyed t-shirt/i,/unisex.*t-shirt/i,/t-shirt/i],exclude:/youth|kids|infant|toddler|dress|v-neck|long sleeve/i,sizes:['S','M','L','XL','2XL','3XL'],colors:['White','Black','Navy','Dark Heather','Sand','Natural']},
@@ -70,9 +70,13 @@ export function validatePlan(input,catalog){
   return {draftId,requestId,products};
 }
 
+export function printifyTitle(value){
+  return plain(value,220).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9 -]+/g,' ').replace(/\s+/g,' ').trim().slice(0,140);
+}
+
 export function productCopy(draft,type){
   const name=plain(draft?.brief?.name||draft?.brief?.topic||'Original seasonal design',90),label=PRODUCT_TYPES.find(x=>x.key===type)?.label||'Product';
-  const title=`[DRAFT] ${name} · ${label}`.slice(0,140);
+  const title=printifyTitle(`Draft ${name} ${label}`)||`Draft Original Design ${label}`;
   const description=`<p>Original ${name} artwork, reviewed by VisionMakeStudio before release.</p><p><strong>Made to order:</strong> This item is printed and shipped by our disclosed production partner, Printify.</p><p><strong>Design process:</strong> AI-assisted artwork was reviewed and approved by the shop owner. Product details, sizing, colors, care instructions and mockups must be checked in Printify before publishing.</p>`;
   return {title,description};
 }
