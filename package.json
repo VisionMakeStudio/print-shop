@@ -1,6 +1,6 @@
 {
   "name": "visionmake-print-shop",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -8,7 +8,8 @@
   },
   "packageManager": "pnpm@11.25.0",
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "test": "node --test"
   },
   "dependencies": {
     "@netlify/blobs": "11.1.4",

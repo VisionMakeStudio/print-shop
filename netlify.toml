@@ -27,3 +27,5 @@
 # No SPA catch-all: missing /api routes must return an error, never index.html.
 # No provider secrets belong here. Optional PINTEREST_ACCESS_TOKEN goes in
 # Netlify > vms-print > Environment variables > Functions / Production.
+# Phase 4 approval email uses RESEND_API_KEY, ALERT_EMAIL,
+# RESEND_FROM_EMAIL and optional DASHBOARD_URL from that same private scope.
