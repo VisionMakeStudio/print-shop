@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {chooseBlueprints,productPayload,summarizeProvider,validatePlan} from '../netlify/lib/clerk/core.mjs';
+import {chooseBlueprints,listFrom,productPayload,summarizeProvider,validatePlan} from '../netlify/lib/clerk/core.mjs';
 import {createClerkHandler} from '../netlify/lib/clerk/http.mjs';
 
 const catalog={products:[{key:'tee',label:'T-shirt',blueprintId:10,blueprintTitle:'Unisex T-Shirt',providerId:20,providerTitle:'US Printer',variantCount:2,minCost:900,maxCost:1100,variants:[{id:1,title:'Black / M',cost:900,placeholders:['front']},{id:2,title:'Black / L',cost:1100,placeholders:['front']}]}]};
@@ -13,6 +13,12 @@ test('Clerk selects distinct apparel and mug blueprints',()=>{
 test('Clerk keeps only available wanted variants and production costs',()=>{
   const product=summarizeProvider({type:{key:'tee',label:'T-shirt',sizes:['M','L'],colors:['Black']},blueprint:{id:10,title:'T-Shirt',brand:'Blank',model:'100',images:[]},provider:{id:20,title:'US Printer'},catalog:{options:[{type:'color',values:[{id:5,title:'Black'},{id:6,title:'Pink'}]},{type:'size',values:[{id:7,title:'M'},{id:8,title:'L'}]}],variants:[{id:1,cost:900,is_available:true,options:[5,7],placeholders:[{position:'front'}]},{id:2,cost:1100,is_available:true,options:[5,8],placeholders:[{position:'front'}]},{id:3,cost:800,is_available:true,options:[6,7]}]}});
   assert.equal(product.variantCount,2);assert.equal(product.maxCost,1100);assert.deepEqual(product.variants.map(v=>v.id),[1,2]);
+});
+
+test('Clerk accepts current Printify object options and wrapped lists',()=>{
+  assert.deepEqual(listFrom({data:[{id:1}]},'data','variants'),[{id:1}]);
+  const product=summarizeProvider({type:{key:'tee',label:'T-shirt',sizes:['M'],colors:['Black']},blueprint:{id:10,title:'T-Shirt',images:[]},provider:{id:20,title:'US Printer'},catalog:{data:[{id:1,cost:925,is_available:true,options:{color:'Black',size:'M'},placeholders:[{position:'front'}]},{id:2,cost:900,is_available:true,options:{color:'Pink',size:'M'}}]}});
+  assert.equal(product.variantCount,1);assert.equal(product.maxCost,925);assert.deepEqual(product.variants.map(v=>v.id),[1]);
 });
 
 test('plan validation requires owner-selected products and sensible prices',()=>{
