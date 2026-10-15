@@ -30,7 +30,7 @@ test('plan validation requires owner-selected products and sensible prices',()=>
 
 test('Printify payload is private and contains no publish instruction',()=>{
   const payload=productPayload({draft:{brief:{name:'Original Autumn Gathering'}},product:{...catalog.products[0],price:2799},imageId:'image-123'});
-  assert.equal(payload.visible,false);assert.equal(payload.print_areas[0].placeholders[0].position,'front');assert.equal(payload.variants.every(v=>v.price===2799),true);assert.equal(Object.hasOwn(payload,'publish'),false);
+  assert.equal(Object.hasOwn(payload,'visible'),false);assert.equal(payload.print_areas[0].placeholders[0].position,'front');assert.equal(payload.variants.every(v=>v.price===2799),true);assert.equal(Object.hasOwn(payload,'publish'),false);
 });
 
 test('Clerk HTTP surface exposes no publishing route',async()=>{

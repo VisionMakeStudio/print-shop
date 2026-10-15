@@ -1,4 +1,4 @@
-export const CLERK_POLICY_VERSION='clerk-1.0';
+export const CLERK_POLICY_VERSION='clerk-1.1';
 
 export const PRODUCT_TYPES=[
   {key:'tee',label:'T-shirt',price:2799,blueprint:[/garment-dyed t-shirt/i,/unisex.*t-shirt/i,/t-shirt/i],exclude:/youth|kids|infant|toddler|dress|v-neck|long sleeve/i,sizes:['S','M','L','XL','2XL','3XL'],colors:['White','Black','Navy','Dark Heather','Sand','Natural']},
@@ -70,5 +70,8 @@ export function productCopy(draft,type){
 
 export function productPayload({draft,product,imageId}){
   const copy=productCopy(draft,product.key),ids=product.variants.map(v=>v.id),positions=product.variants.flatMap(v=>v.placeholders||[]).filter(Boolean),position=positions.find(value=>/^front$/i.test(value))||positions.find(value=>/front/i.test(value))||positions[0]||'front';
-  return {title:copy.title,description:copy.description,blueprint_id:product.blueprintId,print_provider_id:product.providerId,variants:product.variants.map(v=>({id:v.id,price:product.price,is_enabled:true})),print_areas:[{variant_ids:ids,placeholders:[{position,images:[{id:imageId,x:.5,y:.5,scale:.82,angle:0}]}]}],visible:false};
+  // Creating a product does not publish it to Etsy. Printify's separate publish
+  // endpoint is intentionally absent. `visible` is response-only and must not
+  // be sent in a create request.
+  return {title:copy.title,description:copy.description,blueprint_id:product.blueprintId,print_provider_id:product.providerId,variants:product.variants.map(v=>({id:v.id,price:product.price,is_enabled:true})),print_areas:[{variant_ids:ids,placeholders:[{position,images:[{id:imageId,x:.5,y:.5,scale:.82,angle:0}]}]}]};
 }
