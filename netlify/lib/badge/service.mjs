@@ -74,6 +74,7 @@ export function createBadgeService({store,pixelService,reviewClient,mailer,env=(
   async function decide(input){
     const choice=validateDecision(input),inspection=await findInspection(choice.inspectionId);if(!inspection||!['pass','hold','needs_review'].includes(inspection.status))throw new Error('That Badge inspection is not ready for a decision.');
     if(choice.action==='approve'&&inspection.status!=='pass')throw new Error('Badge has this design held. Resolve or skip it before approval.');
+    if(choice.action==='approve'&&inspection.modelReview?.edgeQuality!=='pass')throw new Error('Edge cleanup must pass before final approval. Generate and inspect a new clean-edge draft.');
     const {draft}=await selectedDraft(inspection.draftId);if(!draft)throw new Error('The Pixel selection was undone. Send the draft to Badge again before approval.');
     const data=await load(),prior=data.decisions.filter(item=>item.inspectionId===inspection.id),now=clock(),record={id:randomUUID(),kind:'badge-decision',inspectionId:inspection.id,draftId:draft.id,action:choice.action,reason:choice.reason,shops:choice.shops,at:now.toISOString(),supersedes:prior.map(item=>item.id)};
     await store.put(orderedKey('decisions',record.at,record.id),record,true);

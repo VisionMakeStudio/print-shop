@@ -52,5 +52,8 @@ test('live service stores one inspection, sends one email and records final appr
   const service=createBadgeService({store,pixelService,reviewClient:()=>client,mailer,env:key=>key==='OPENAI_API_KEY'?'set':undefined,clock:()=>new Date(times[Math.min(n++,times.length-1)])});
   const start=await service.startInspection({draftId:draft.id,requestId:'33333333-3333-4333-8333-333333333333'});assert.equal(start.inspection.status,'queued');
   await service.runInspection({inspectionId:start.inspection.id});const checked=await service.snapshot();assert.equal(checked.cards[0].inspection.status,'pass');assert.equal(checked.cards[0].email.status,'sent');assert.equal(sent,1);
+  const inspectionKey=[...records.keys()].find(key=>key.startsWith('inspections/'));const legacy=records.get(inspectionKey);delete legacy.modelReview.edgeQuality;records.set(inspectionKey,legacy);
+  await assert.rejects(()=>service.decide({inspectionId:start.inspection.id,action:'approve',reason:'',shops:{Etsy:true,'TikTok Shop':false}}),/Edge cleanup must pass/);
+  legacy.modelReview.edgeQuality='pass';records.set(inspectionKey,legacy);
   const decided=await service.decide({inspectionId:start.inspection.id,action:'approve',reason:'',shops:{Etsy:true,'TikTok Shop':false}});assert.equal(decided.cards[0].finalState,'approved');assert.equal(decided.boundaries.publishing,false);
 });
