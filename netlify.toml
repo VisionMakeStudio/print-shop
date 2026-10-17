@@ -31,3 +31,5 @@
 # RESEND_FROM_EMAIL and optional DASHBOARD_URL from that same private scope.
 # Phase 5 Clerk uses PRINTIFY_API_TOKEN in Functions. The token stays server-side;
 # Clerk creates private drafts only and exposes no Printify publish route.
+# Phase 6 Tagz reuses OPENAI_API_KEY in Functions to prepare private Etsy copy.
+# It has no Etsy token, Etsy write call or publishing route.
