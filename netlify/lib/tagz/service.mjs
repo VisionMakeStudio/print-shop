@@ -16,7 +16,8 @@ export function createTagzService({store,clerkService,copyClient,env=()=>undefin
   async function findJob(id){return (await load()).jobs.find(item=>item.id===id)||null;}
   async function readySets(){
     const clerk=await clerkService.snapshot(),plans=new Map((clerk.plans||[]).map(plan=>[plan.id,plan]));
-    return (clerk.jobs||[]).filter(job=>job.status==='ready'&&job.products?.length).map(job=>{const plan=plans.get(job.planId);return plan?{clerkJobId:job.id,draftId:job.draftId,designName:plan.designName,products:job.products,plan}:null;}).filter(Boolean);
+    const approved=new Map((clerk.approved||[]).map(item=>[item.draftId,item]));
+    return (clerk.jobs||[]).filter(job=>job.status==='ready'&&job.products?.length).map(job=>{const plan=plans.get(job.planId),design=approved.get(job.draftId);return plan?{clerkJobId:job.id,draftId:job.draftId,designName:plan.designName,artUrl:design?.artUrl||'',products:job.products,plan}:null;}).filter(Boolean);
   }
   async function snapshot(){
     const now=clock(),data=await load(),sets=await readySets(),suppressed=new Set(data.decisions.flatMap(item=>item.supersedes||[])),current=new Map();

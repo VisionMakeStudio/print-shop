@@ -33,3 +33,5 @@
 # Clerk creates private drafts only and exposes no Printify publish route.
 # Phase 6 Tagz reuses OPENAI_API_KEY in Functions to prepare private Etsy copy.
 # It has no Etsy token, Etsy write call or publishing route.
+# Phases 7–8 reuse OPENAI_API_KEY for private Pinterest drafts and video plans.
+# They have no Pinterest, TikTok, Instagram or YouTube token or publishing route.
